@@ -8,7 +8,7 @@ extends CharacterData
 @export var max_char_level: int = -1
 
 
-static func get_all() -> Array[EnemyData]:
+static func get_all_enemies() -> Array[EnemyData]:
 	var enemies: Array[EnemyData] = []
 	for path in get_all_filepaths():
 		enemies.append(load(path) as EnemyData)

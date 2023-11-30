@@ -12,7 +12,7 @@ extends Resource
 # TODO: Modifiers
 
 
-static func get_all() -> Array[CharacterData]:
+static func get_all_characters() -> Array[CharacterData]:
 	var enemies: Array[CharacterData] = []
 	for path in get_all_filepaths():
 		enemies.append(load(path) as CharacterData)

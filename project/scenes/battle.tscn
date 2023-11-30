@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://yskrqf4opcny" path="res://gui/player_battler_info.tscn" id="4_4184w"]
 
 [node name="Battle" type="Node2D"]
+z_index = 10
 script = ExtResource("1_ay6vq")
 
 [node name="Background" type="Sprite2D" parent="."]

@@ -14,7 +14,7 @@ func _ready() -> void:
 func _transition(transition: StringName, scene_switch: Callable) -> void:
 	var size := _crop.size
 	var screenshot := get_viewport().get_texture().get_image()
-	screenshot.save_png("res://test_screenshot.png")
+	await get_tree().process_frame
 	var texture := ImageTexture.create_from_image(screenshot)
 	_previous_scene.texture = texture
 	visible = true
