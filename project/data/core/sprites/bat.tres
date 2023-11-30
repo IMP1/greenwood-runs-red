@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://dekema7exiir6"]
+
+[ext_resource type="Texture2D" uid="uid://xi2vce83mylq" path="res://assets/battlers/bat.png" id="1_cabao"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4s3l"]
+atlas = ExtResource("1_cabao")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jkxi"]
+atlas = ExtResource("1_cabao")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc3mk"]
+atlas = ExtResource("1_cabao")
+region = Rect2(128, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4s3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jkxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc3mk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

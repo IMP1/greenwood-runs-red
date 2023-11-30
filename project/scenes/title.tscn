@@ -1,0 +1,223 @@
+[gd_scene load_steps=6 format=3 uid="uid://8m2j5fl34d0x"]
+
+[ext_resource type="Theme" uid="uid://dx6v3834lty7n" path="res://assets/ui_theme.tres" id="1_7ed54"]
+[ext_resource type="Script" path="res://scenes/title.gd" id="2_tww57"]
+[ext_resource type="FontFile" uid="uid://c3v6fqjv2m2v7" path="res://assets/fonts/Beholden/Beholden-Bold.ttf" id="2_vlqd3"]
+[ext_resource type="Texture2D" uid="uid://dgqo2wp7hfqv1" path="res://assets/fox.png" id="3_677m3"]
+[ext_resource type="Texture2D" uid="uid://bmgatjpxvf6if" path="res://assets/characters/badger_face.png" id="5_k88kk"]
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7ed54")
+script = ExtResource("2_tww57")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_bottom = 404.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_677m3")
+expand_mode = 4
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 128.0
+offset_bottom = 209.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("2_vlqd3")
+theme_override_font_sizes/font_size = 64
+text = "The Greenwood Runs Red"
+horizontal_alignment = 1
+
+[node name="TitleShadow" type="Label" parent="Title"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0.752941)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("2_vlqd3")
+theme_override_font_sizes/font_size = 64
+text = "The Greenwood Runs Red"
+horizontal_alignment = 1
+
+[node name="Actions" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -148.0
+offset_top = 240.0
+offset_right = 148.0
+offset_bottom = -77.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Continue" type="Button" parent="Actions"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Continue Run"
+
+[node name="NewGame" type="Button" parent="Actions"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Start New Game"
+
+[node name="Options" type="Button" parent="Actions"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+disabled = true
+text = "Options"
+
+[node name="Credits" type="Button" parent="Actions"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="Actions"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Exit to Desktop"
+
+[node name="CurrentCampaign" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 175.0
+offset_top = 252.0
+offset_right = -42.0
+offset_bottom = -254.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Connector" type="Panel" parent="CurrentCampaign"]
+layout_mode = 0
+offset_left = -1.0
+offset_right = 29.0
+offset_bottom = 48.0
+
+[node name="Panel" type="Panel" parent="CurrentCampaign"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="CurrentCampaign/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.878431, 0.878431, 0.878431, 0.501961)
+theme_override_font_sizes/font_size = 18
+text = "--- Current Run ---"
+horizontal_alignment = 1
+
+[node name="Info" type="Control" parent="CurrentCampaign/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="CurrentCampaign/Panel/Info"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "Bodger the Badger"
+horizontal_alignment = 1
+
+[node name="Portrait" type="TextureRect" parent="CurrentCampaign/Panel/Info"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 31.0
+offset_right = 94.0
+offset_bottom = -5.0
+grow_vertical = 2
+texture = ExtResource("5_k88kk")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Level" type="Label" parent="CurrentCampaign/Panel/Info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 81.0
+offset_top = 39.0
+offset_right = -175.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "Level 1"
+
+[node name="LastBattle" type="Label" parent="CurrentCampaign/Panel/Info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 81.0
+offset_top = 73.0
+offset_right = -6.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "Last faced: Rat"
+
+[node name="Centre" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Actions/Continue" to="." method="_continue"]
+[connection signal="pressed" from="Actions/NewGame" to="." method="_new_game"]
+[connection signal="pressed" from="Actions/Options" to="." method="_options"]
+[connection signal="pressed" from="Actions/Credits" to="." method="_credits"]
+[connection signal="pressed" from="Actions/Quit" to="." method="_quit"]

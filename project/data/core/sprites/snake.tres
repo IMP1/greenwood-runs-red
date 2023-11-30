@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cih4iagb5u81k"]
+
+[ext_resource type="Texture2D" uid="uid://cfywjbfugw7ua" path="res://assets/battlers/snake.png" id="1_qkguu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28v03"]
+atlas = ExtResource("1_qkguu")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctvwb"]
+atlas = ExtResource("1_qkguu")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apmav"]
+atlas = ExtResource("1_qkguu")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5biex"]
+atlas = ExtResource("1_qkguu")
+region = Rect2(192, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28v03")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctvwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apmav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5biex")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb5ius8idkktq"]
+
+[ext_resource type="Script" path="res://object/battler.gd" id="1_e2m6w"]
+
+[node name="Battler" type="Node2D"]
+script = ExtResource("1_e2m6w")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -29)

@@ -1,0 +1,69 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://come8f171ek1h"]
+
+[ext_resource type="FontFile" uid="uid://c3v6fqjv2m2v7" path="res://assets/fonts/Beholden/Beholden-Bold.ttf" id="1_54rsa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3n4ae"]
+bg_color = Color(0.25098, 0.25098, 0.25098, 0.447059)
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+expand_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hme0"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.447059)
+border_width_left = 8
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.235294, 0.396078, 0.290196, 1)
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+expand_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5o1xj"]
+bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0.447059)
+border_width_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+expand_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4klp"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.447059)
+border_width_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+expand_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hdwmb"]
+bg_color = Color(0.235294, 0.396078, 0.290196, 0.447059)
+border_width_left = 8
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+expand_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkc0p"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 1
+shadow_offset = Vector2(4, 4)
+
+[resource]
+default_font = ExtResource("1_54rsa")
+default_font_size = 24
+Button/styles/disabled = SubResource("StyleBoxFlat_3n4ae")
+Button/styles/focus = SubResource("StyleBoxFlat_1hme0")
+Button/styles/hover = SubResource("StyleBoxFlat_5o1xj")
+Button/styles/normal = SubResource("StyleBoxFlat_y4klp")
+Button/styles/pressed = SubResource("StyleBoxFlat_hdwmb")
+Panel/styles/panel = SubResource("StyleBoxFlat_jkc0p")

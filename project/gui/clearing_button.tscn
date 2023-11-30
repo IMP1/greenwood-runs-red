@@ -1,0 +1,106 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8u11w5w47ls6"]
+
+[ext_resource type="Theme" uid="uid://dx6v3834lty7n" path="res://assets/ui_theme.tres" id="1_qffxo"]
+[ext_resource type="Script" path="res://gui/clearing_button.gd" id="1_rqp5v"]
+[ext_resource type="Texture2D" uid="uid://dlnis467ib1a" path="res://assets/icons/wolverine-claws.svg" id="2_f7ck3"]
+
+[node name="ClearingButton" type="Control"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -993.0
+offset_bottom = -488.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rqp5v")
+
+[node name="OpenInfo" type="Button" parent="."]
+layout_mode = 1
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 19.0
+offset_bottom = 19.0
+
+[node name="ClearingInfo" type="Control" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -112.0
+offset_right = -79.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qffxo")
+
+[node name="Panel" type="Panel" parent="ClearingInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ClearingName" type="Label" parent="ClearingInfo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Clearing"
+horizontal_alignment = 1
+
+[node name="DifficultyLevel" type="Label" parent="ClearingInfo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 33.0
+offset_bottom = 53.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 16
+text = "Easy"
+horizontal_alignment = 1
+
+[node name="ClearingType" type="TextureRect" parent="ClearingInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 57.0
+offset_right = -5.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_f7ck3")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Enter" type="Button" parent="ClearingInfo"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 78.0
+offset_top = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "Travel"
+
+[node name="CloseInfo" type="Button" parent="ClearingInfo"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -30.0
+offset_right = 62.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "Close"

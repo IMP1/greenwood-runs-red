@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://p3dab401mclb"]
+
+[ext_resource type="Texture2D" uid="uid://d1j2dks0i5cfb" path="res://assets/battlers/fox.png" id="1_cfj8t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqbpn"]
+atlas = ExtResource("1_cfj8t")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymgoq"]
+atlas = ExtResource("1_cfj8t")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u14m"]
+atlas = ExtResource("1_cfj8t")
+region = Rect2(128, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqbpn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymgoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u14m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -1,0 +1,116 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcivrfec77mtf"]
+
+[ext_resource type="Texture2D" uid="uid://b84svo1i6riyc" path="res://assets/backgrounds/bg_test.png" id="1_6clw4"]
+[ext_resource type="Script" path="res://scenes/battle.gd" id="1_ay6vq"]
+[ext_resource type="Theme" uid="uid://dx6v3834lty7n" path="res://assets/ui_theme.tres" id="3_dyvag"]
+[ext_resource type="PackedScene" uid="uid://yskrqf4opcny" path="res://gui/player_battler_info.tscn" id="4_4184w"]
+[ext_resource type="PackedScene" uid="uid://cm8fst364q4y5" path="res://gui/enemy_info.tscn" id="5_hqwus"]
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_ay6vq")
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(1.01408, 0.807813)
+texture = ExtResource("1_6clw4")
+centered = false
+
+[node name="Positions" type="Node2D" parent="."]
+
+[node name="1" type="Marker2D" parent="Positions"]
+position = Vector2(598, 223)
+
+[node name="2" type="Marker2D" parent="Positions"]
+position = Vector2(777, 245)
+
+[node name="3" type="Marker2D" parent="Positions"]
+position = Vector2(871, 341)
+
+[node name="4" type="Marker2D" parent="Positions"]
+position = Vector2(674, 313)
+
+[node name="5" type="Marker2D" parent="Positions"]
+position = Vector2(735, 434)
+
+[node name="6" type="Marker2D" parent="Positions"]
+position = Vector2(557, 395)
+
+[node name="7" type="Marker2D" parent="Positions"]
+position = Vector2(365, 375)
+
+[node name="8" type="Marker2D" parent="Positions"]
+position = Vector2(480, 295)
+
+[node name="9" type="Marker2D" parent="Positions"]
+position = Vector2(421, 200)
+
+[node name="10" type="Marker2D" parent="Positions"]
+position = Vector2(295, 265)
+
+[node name="Battlers" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hand" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 208.0
+offset_top = -161.0
+offset_right = -8.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BattleInfo" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 14.0
+offset_top = 12.0
+offset_right = 252.0
+offset_bottom = 120.0
+theme = ExtResource("3_dyvag")
+
+[node name="RoundNumber" type="Label" parent="CanvasLayer/BattleInfo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "Round 1"
+horizontal_alignment = 1
+
+[node name="PlayerInfo" parent="CanvasLayer" instance=ExtResource("4_4184w")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -216.0
+offset_right = 187.0
+offset_bottom = -8.0
+grow_vertical = 0
+
+[node name="EnemyInfo" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -147.0
+offset_top = 6.0
+offset_right = -7.0
+offset_bottom = 406.0
+grow_horizontal = 0
+theme_override_constants/separation = 16
+
+[node name="Enemy1" parent="CanvasLayer/EnemyInfo" instance=ExtResource("5_hqwus")]
+layout_mode = 2
+
+[node name="Actions" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EndTurn" type="Button" parent="CanvasLayer/Actions"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

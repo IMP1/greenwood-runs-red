@@ -1,0 +1,679 @@
+[gd_scene load_steps=21 format=3 uid="uid://cewc40tfocmbw"]
+
+[ext_resource type="Script" path="res://scenes/campaign.gd" id="1_pfic5"]
+[ext_resource type="Texture2D" uid="uid://dlfsag7ow00we" path="res://assets/icons/paw-print.svg" id="3_2oddv"]
+[ext_resource type="Texture2D" uid="uid://dlnis467ib1a" path="res://assets/icons/wolverine-claws.svg" id="5_0j77u"]
+[ext_resource type="PackedScene" uid="uid://jet1u1cjcr57" path="res://object/starting_clearing.tscn" id="5_0xnct"]
+[ext_resource type="PackedScene" uid="uid://do0x03rmg7ri5" path="res://object/battle_clearing.tscn" id="5_e6ab3"]
+[ext_resource type="Texture2D" uid="uid://cd6iooghcyfwe" path="res://assets/icons/bulb.svg" id="7_483cr"]
+[ext_resource type="PackedScene" uid="uid://bt7pbkskftb73" path="res://object/shrine_clearing.tscn" id="7_k8x65"]
+[ext_resource type="PackedScene" uid="uid://cuit3pba1m2je" path="res://object/boss_clearing.tscn" id="8_pd6n1"]
+[ext_resource type="Texture2D" uid="uid://qqgg3dmoy05k" path="res://assets/icons/sharped-teeth-skull.svg" id="9_jyvdd"]
+[ext_resource type="Script" path="res://util/generate_woodland.gd" id="9_l4kbw"]
+[ext_resource type="Resource" uid="uid://b44wloub46i5k" path="res://data/core/enemies/rat.tres" id="9_s4smc"]
+[ext_resource type="Texture2D" uid="uid://6w18cx0sdkar" path="res://assets/map_entities/tree_bottom.png" id="10_5g2o6"]
+[ext_resource type="Texture2D" uid="uid://lsbin5hbwe7j" path="res://assets/map_entities/tree_middle.png" id="11_d1wrp"]
+[ext_resource type="PackedScene" uid="uid://by76gjl8ga21a" path="res://gui/modal.tscn" id="11_g2w4r"]
+[ext_resource type="Texture2D" uid="uid://clduiunhmndd7" path="res://assets/map_entities/tree_top.png" id="12_wd6ys"]
+[ext_resource type="Texture2D" uid="uid://15ndkvtecggh" path="res://assets/characters/snake_face.png" id="14_yrukp"]
+
+[sub_resource type="Gradient" id="Gradient_v2y8d"]
+colors = PackedColorArray(0.93408, 0.93408, 0.93408, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wfngi"]
+frequency = 0.2
+offset = Vector3(0, 5e+07, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f3s3r"]
+seamless = true
+color_ramp = SubResource("Gradient_v2y8d")
+noise = SubResource("FastNoiseLite_wfngi")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hr3ej"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="Campaign" type="Node2D"]
+script = ExtResource("1_pfic5")
+metadata/_edit_vertical_guides_ = []
+
+[node name="Forest" type="Node2D" parent="."]
+
+[node name="Ground" type="Node2D" parent="Forest"]
+
+[node name="Grass" type="Polygon2D" parent="Forest/Ground"]
+texture_repeat = 2
+position = Vector2(-428, -127)
+color = Color(0.392157, 0.490196, 0.317647, 1)
+texture = SubResource("NoiseTexture2D_f3s3r")
+polygon = PackedVector2Array(-38, -38, 2792, -44, 2798, 1546, -42, 1542)
+
+[node name="Paths" type="Line2D" parent="Forest/Ground"]
+points = PackedVector2Array(262, 178, 283, 396, 209, 645, 535, 712, 321, 900, 209, 648, 324, 898, 555, 1079, 991, 1066, 760, 850, 993, 1066, 1290, 853, 1002, 731, 1292, 853, 1431, 543, 1623, 676, 1432, 543, 1223, 241, 987, 467, 866, 196, 1223, 239, 1223.31, 239.667, 866, 196, 568, 270, 261, 176)
+width = 20.0
+default_color = Color(0.729412, 0.611765, 0.435294, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Water" type="Polygon2D" parent="Forest/Ground"]
+position = Vector2(-67, -17)
+color = Color(0.286275, 0.384314, 0.533333, 1)
+polygon = PackedVector2Array(2184, 174, 2078, 292, 1978, 430, 1901, 600, 1823, 691, 1755, 726, 1680, 759, 1621, 796, 1576, 851, 1544, 927, 1506, 987, 1451, 1049, 1395, 1102, 1321, 1164, 1257, 1212, 1180, 1274, 1110, 1353, 1015, 1482, 948, 1617, 909, 1692, 1127, 1685, 1151, 1589, 1201, 1453, 1264, 1359, 1317, 1296, 1407, 1218, 1501, 1148, 1577, 1082, 1647, 1034, 1755, 1013, 1855, 972, 1942, 913, 2020, 839, 2074, 737, 2120, 610, 2160, 488, 2166, 393, 2199, 305, 2274, 240, 2337, 185, 2413, 149, 2503, 119, 2605, 110, 2807, 119, 2926, 99, 2915, -40, 2659, -29, 2463, 10, 2285, 103)
+
+[node name="Woodland" type="Node2D" parent="Forest"]
+script = ExtResource("9_l4kbw")
+bottom_texture = ExtResource("10_5g2o6")
+middle_texture = ExtResource("11_d1wrp")
+top_texture = ExtResource("12_wd6ys")
+
+[node name="Tree1" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(442, 91)
+gizmo_extents = 32.0
+
+[node name="Tree49" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(392, 291)
+gizmo_extents = 32.0
+
+[node name="Tree50" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(764, 519)
+gizmo_extents = 32.0
+
+[node name="Tree51" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(538, 605)
+gizmo_extents = 32.0
+
+[node name="Tree52" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(656, 749)
+gizmo_extents = 32.0
+
+[node name="Tree53" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(604, 895)
+gizmo_extents = 32.0
+
+[node name="Tree54" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(830, 715)
+gizmo_extents = 32.0
+
+[node name="Tree55" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(908, 863)
+gizmo_extents = 32.0
+
+[node name="Tree56" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1018, 617)
+gizmo_extents = 32.0
+
+[node name="Tree57" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1168, 687)
+gizmo_extents = 32.0
+
+[node name="Tree58" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1104, 561)
+gizmo_extents = 32.0
+
+[node name="Tree59" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(704, 359)
+gizmo_extents = 32.0
+
+[node name="Tree60" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(908, 23)
+gizmo_extents = 32.0
+
+[node name="Tree61" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(324, 3)
+gizmo_extents = 32.0
+
+[node name="Tree62" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(40, 109)
+gizmo_extents = 32.0
+
+[node name="Tree63" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(18, 329)
+gizmo_extents = 32.0
+
+[node name="Tree64" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(6, 559)
+gizmo_extents = 32.0
+
+[node name="Tree65" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(38, 729)
+gizmo_extents = 32.0
+
+[node name="Tree66" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(60, 955)
+gizmo_extents = 32.0
+
+[node name="Tree67" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(264, 1161)
+gizmo_extents = 32.0
+
+[node name="Tree68" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(424, 1247)
+gizmo_extents = 32.0
+
+[node name="Tree69" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(260, 67)
+gizmo_extents = 32.0
+
+[node name="Tree70" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(156, 131)
+gizmo_extents = 32.0
+
+[node name="Tree71" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(224, 283)
+gizmo_extents = 32.0
+
+[node name="Tree74" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(154, 355)
+gizmo_extents = 32.0
+
+[node name="Tree75" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(194, 487)
+gizmo_extents = 32.0
+
+[node name="Tree76" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(280, 573)
+gizmo_extents = 32.0
+
+[node name="Tree77" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(432, 745)
+gizmo_extents = 32.0
+
+[node name="Tree78" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(392, 779)
+gizmo_extents = 32.0
+
+[node name="Tree72" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(386, 163)
+gizmo_extents = 32.0
+
+[node name="Tree73" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(326, 281)
+gizmo_extents = 32.0
+
+[node name="Tree2" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(623, 86)
+gizmo_extents = 32.0
+
+[node name="Tree3" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1182, 114)
+gizmo_extents = 32.0
+
+[node name="Tree4" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(798, 47)
+gizmo_extents = 32.0
+
+[node name="Tree5" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1408, 330)
+gizmo_extents = 32.0
+
+[node name="Tree6" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(810, 393)
+gizmo_extents = 32.0
+
+[node name="Tree7" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(411, 567)
+gizmo_extents = 32.0
+
+[node name="Tree8" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(334, 793)
+gizmo_extents = 32.0
+
+[node name="Tree79" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(304, 751)
+gizmo_extents = 32.0
+
+[node name="Tree80" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(304, 699)
+gizmo_extents = 32.0
+
+[node name="Tree81" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(360, 719)
+gizmo_extents = 32.0
+
+[node name="Tree82" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(454, 647)
+gizmo_extents = 32.0
+
+[node name="Tree83" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(600, 631)
+gizmo_extents = 32.0
+
+[node name="Tree84" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(644, 679)
+gizmo_extents = 32.0
+
+[node name="Tree85" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(622, 785)
+gizmo_extents = 32.0
+
+[node name="Tree86" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(570, 825)
+gizmo_extents = 32.0
+
+[node name="Tree87" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(490, 823)
+gizmo_extents = 32.0
+
+[node name="Tree9" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(496, 906)
+gizmo_extents = 32.0
+
+[node name="Tree10" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(727, 1145)
+gizmo_extents = 32.0
+
+[node name="Tree11" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(873, 1254)
+gizmo_extents = 32.0
+
+[node name="Tree12" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1046, 894)
+gizmo_extents = 32.0
+
+[node name="Tree13" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1277, 664)
+gizmo_extents = 32.0
+
+[node name="Tree14" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1603, 561)
+gizmo_extents = 32.0
+
+[node name="Tree15" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1748, 500)
+gizmo_extents = 32.0
+
+[node name="Tree16" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1837, 336)
+gizmo_extents = 32.0
+
+[node name="Tree17" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(2183, 428)
+gizmo_extents = 32.0
+
+[node name="Tree18" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(2135, 658)
+gizmo_extents = 32.0
+
+[node name="Tree19" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(2036, 919)
+gizmo_extents = 32.0
+
+[node name="Tree20" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1601, 1121)
+gizmo_extents = 32.0
+
+[node name="Tree21" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(700, 656)
+gizmo_extents = 32.0
+
+[node name="Tree22" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(93, 221)
+gizmo_extents = 32.0
+
+[node name="Tree23" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(137, 823)
+gizmo_extents = 32.0
+
+[node name="Tree39" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(99, 445)
+gizmo_extents = 32.0
+
+[node name="Tree24" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(357, 1101)
+gizmo_extents = 32.0
+
+[node name="Tree25" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(160, 37)
+gizmo_extents = 32.0
+
+[node name="Tree26" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1392, 143)
+gizmo_extents = 32.0
+
+[node name="Tree27" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1195, 491)
+gizmo_extents = 32.0
+
+[node name="Tree28" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1014, 307)
+gizmo_extents = 32.0
+
+[node name="Tree29" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(873, 598)
+gizmo_extents = 32.0
+
+[node name="Tree30" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(723, 992)
+gizmo_extents = 32.0
+
+[node name="Tree31" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(447, 385)
+gizmo_extents = 32.0
+
+[node name="Tree32" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1194, 1054)
+gizmo_extents = 32.0
+
+[node name="Tree33" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1454, 1262)
+gizmo_extents = 32.0
+
+[node name="Tree34" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1812, 1152)
+gizmo_extents = 32.0
+
+[node name="Tree35" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1296, 1365)
+gizmo_extents = 32.0
+
+[node name="Tree36" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1944, 229)
+gizmo_extents = 32.0
+
+[node name="Tree37" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(2142, 832)
+gizmo_extents = 32.0
+
+[node name="Tree38" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1916, 1022)
+gizmo_extents = 32.0
+
+[node name="Tree40" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(621, 505)
+gizmo_extents = 32.0
+
+[node name="Tree41" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(735, 1324)
+gizmo_extents = 32.0
+
+[node name="Tree42" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(173, 1054)
+gizmo_extents = 32.0
+
+[node name="Tree43" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1605, 381)
+gizmo_extents = 32.0
+
+[node name="Tree44" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1465, 797)
+gizmo_extents = 32.0
+
+[node name="Tree45" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1059, 1203)
+gizmo_extents = 32.0
+
+[node name="Tree46" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1637, 1266)
+gizmo_extents = 32.0
+
+[node name="Tree47" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(1672, 237)
+gizmo_extents = 32.0
+
+[node name="Tree48" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(558, 1291)
+gizmo_extents = 32.0
+
+[node name="Tree88" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(-1, 202)
+gizmo_extents = 32.0
+
+[node name="Tree89" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(94, 57)
+gizmo_extents = 32.0
+
+[node name="Tree90" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(81, 160)
+gizmo_extents = 32.0
+
+[node name="Tree91" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(43, 262)
+gizmo_extents = 32.0
+
+[node name="Tree92" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(172, 213)
+gizmo_extents = 32.0
+
+[node name="Tree93" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(88, 327)
+gizmo_extents = 32.0
+
+[node name="Tree94" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(233, 0)
+gizmo_extents = 32.0
+
+[node name="Tree95" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(169, -34)
+gizmo_extents = 32.0
+
+[node name="Tree96" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(98, -21)
+gizmo_extents = 32.0
+
+[node name="Tree97" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(38, 16)
+gizmo_extents = 32.0
+
+[node name="Tree98" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(-22, 66)
+gizmo_extents = 32.0
+
+[node name="Tree99" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(-49, 140)
+gizmo_extents = 32.0
+
+[node name="Tree100" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(-98, 216)
+gizmo_extents = 32.0
+
+[node name="Tree101" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(6, 157)
+gizmo_extents = 32.0
+
+[node name="Tree102" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(-39, 240)
+gizmo_extents = 32.0
+
+[node name="Tree103" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(-77, 173)
+gizmo_extents = 32.0
+
+[node name="Tree104" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(-69, 88)
+gizmo_extents = 32.0
+
+[node name="Tree105" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(208, 54)
+gizmo_extents = 32.0
+
+[node name="Tree106" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(277, -27)
+gizmo_extents = 32.0
+
+[node name="Tree107" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(358, -40)
+gizmo_extents = 32.0
+
+[node name="Tree108" type="Marker2D" parent="Forest/Woodland"]
+position = Vector2(358, -40)
+gizmo_extents = 32.0
+
+[node name="Clearings" type="Node2D" parent="Forest"]
+
+[node name="StartingClearing" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_0xnct")]
+position = Vector2(274, 175)
+icon = ExtResource("3_2oddv")
+adjacent_clearings = [NodePath("../BattleClearing"), NodePath("../BattleClearing2")]
+
+[node name="BattleClearing" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(562, 267)
+possible_encounters = Array[Resource("res://defs/enemy.gd")]([ExtResource("9_s4smc")])
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../StartingClearing"), NodePath("../BattleClearing4")]
+
+[node name="BattleClearing2" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(286, 403)
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../StartingClearing"), NodePath("../BattleClearing3")]
+
+[node name="BattleClearing3" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(206, 650)
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../BattleClearing2"), NodePath("../ShrineClearing"), NodePath("../BattleClearing10")]
+
+[node name="BattleClearing4" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(863, 194)
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../BattleClearing"), NodePath("../BattleClearing5"), NodePath("../ShrineClearing2")]
+
+[node name="BattleClearing5" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(1215, 255)
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../BattleClearing4"), NodePath("../ShrineClearing2"), NodePath("../BattleClearing6")]
+
+[node name="BattleClearing6" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(1425, 541)
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../BattleClearing5"), NodePath("../BattleClearing7")]
+
+[node name="BattleClearing7" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(1287, 849)
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../BattleClearing6"), NodePath("../BattleClearing8"), NodePath("../BossClearing")]
+
+[node name="BattleClearing8" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(982, 1062)
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../BattleClearing7"), NodePath("../BattleClearing9"), NodePath("../ShrineClearing3")]
+
+[node name="BattleClearing9" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(553, 1079)
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../BattleClearing8"), NodePath("../BattleClearing10")]
+
+[node name="BattleClearing10" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("5_e6ab3")]
+position = Vector2(315, 901)
+times_cleared = 0
+battle_probability = 1.0
+icon = ExtResource("5_0j77u")
+adjacent_clearings = [NodePath("../BattleClearing9"), NodePath("../BattleClearing3"), NodePath("../ShrineClearing")]
+
+[node name="ShrineClearing" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("7_k8x65")]
+position = Vector2(535, 716)
+clearing_name = "Shrine"
+icon = ExtResource("7_483cr")
+adjacent_clearings = [NodePath("../BattleClearing3"), NodePath("../BattleClearing10")]
+
+[node name="ShrineClearing2" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("7_k8x65")]
+position = Vector2(978, 470)
+clearing_name = "Shrine"
+icon = ExtResource("7_483cr")
+adjacent_clearings = [NodePath("../BattleClearing4"), NodePath("../BattleClearing5")]
+
+[node name="ShrineClearing3" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("7_k8x65")]
+position = Vector2(752, 840)
+clearing_name = "Shrine"
+icon = ExtResource("7_483cr")
+adjacent_clearings = [NodePath("../BattleClearing8")]
+
+[node name="BossClearing" parent="Forest/Clearings" node_paths=PackedStringArray("adjacent_clearings") instance=ExtResource("8_pd6n1")]
+position = Vector2(1011, 742)
+times_cleared = 0
+clearing_name = "Forest Heart"
+icon = ExtResource("9_jyvdd")
+adjacent_clearings = [NodePath("../BattleClearing7")]
+
+[node name="Fog" type="Node2D" parent="Forest"]
+visible = false
+
+[node name="Polygon2D" type="Polygon2D" parent="Forest/Fog"]
+position = Vector2(-155, -42)
+color = Color(0.568627, 0.647059, 0.619608, 1)
+polygon = PackedVector2Array(989, -80, 954, -40, 947, 36, 957, 66, 984, 89, 1003, 100, 1024, 103, 1038, 115, 1036, 137, 1026, 149, 1004, 162, 1000, 179, 1008, 195, 1027, 211, 1059, 235, 1083, 297, 1085, 342, 1056, 382, 1032, 396, 994, 404, 922, 460, 866, 468, 805, 454, 720, 462, 631, 492, 562, 534, 503, 620, 450, 660, 375, 681, 290, 695, 204, 705, 79, 711, -31, 740, -81, 788, -197, 912, -178, 1543, 2910, 1528, 2929, -152)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Forest/Fog"]
+position = Vector2(-195, -73)
+color = Color(0.568627, 0.647059, 0.619608, 0.501961)
+polygon = PackedVector2Array(989, -80, 958, -57, 952, -36, 964, 2, 955, 43, 958, 67, 967, 91, 989, 115, 1001, 142, 1000, 179, 1008, 195, 1027, 211, 1051, 273, 1083, 297, 1085, 342, 1056, 382, 1032, 396, 994, 404, 930, 457, 873, 444, 805, 454, 720, 462, 631, 492, 562, 534, 503, 620, 450, 660, 375, 681, 290, 695, 204, 705, 79, 711, -31, 740, -81, 788, -197, 912, -178, 1543, 2910, 1528, 2929, -152)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Forest/Fog"]
+position = Vector2(-310, -101)
+color = Color(0.568627, 0.647059, 0.619608, 0.501961)
+polygon = PackedVector2Array(989, -80, 958, -57, 952, -36, 964, 2, 955, 43, 958, 67, 967, 91, 989, 115, 1001, 142, 1000, 179, 1008, 195, 1027, 211, 1051, 273, 1083, 297, 1085, 342, 1056, 382, 1032, 396, 994, 404, 930, 457, 865, 482, 776, 492, 711, 507, 655, 571, 609, 636, 541, 670, 465, 651, 375, 681, 290, 695, 204, 705, 79, 711, -31, 740, -81, 788, -197, 912, -178, 1543, 2910, 1528, 2929, -152)
+
+[node name="Gui" type="Node2D" parent="Forest"]
+
+[node name="CurrentClearing" type="Node2D" parent="Forest/Gui"]
+
+[node name="Panel" type="Panel" parent="Forest/Gui/CurrentClearing"]
+self_modulate = Color(1, 1, 1, 0.752941)
+custom_minimum_size = Vector2(64, 64)
+offset_left = -32.0
+offset_top = -40.0
+offset_right = 32.0
+offset_bottom = 24.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hr3ej")
+
+[node name="TextureRect" type="TextureRect" parent="Forest/Gui/CurrentClearing"]
+custom_minimum_size = Vector2(64, 64)
+offset_left = -32.0
+offset_top = -40.0
+offset_right = 32.0
+offset_bottom = 24.0
+texture = ExtResource("14_yrukp")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AdjacentClearings" type="Node2D" parent="Forest/Gui"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+limit_left = -256
+limit_top = -128
+limit_right = 2304
+limit_bottom = 1344
+editor_draw_limits = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CharacterInfo" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Modal" parent="CanvasLayer" instance=ExtResource("11_g2w4r")]
+visible = false
+
+[node name="ClearingInfo" type="Control" parent="CanvasLayer/Modal"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

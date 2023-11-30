@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://wgcau36uyia5"]
+
+[ext_resource type="Texture2D" uid="uid://dly1v15a5is8t" path="res://assets/battlers/owl.png" id="1_2njd6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fol3a"]
+atlas = ExtResource("1_2njd6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuae1"]
+atlas = ExtResource("1_2njd6")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fttd"]
+atlas = ExtResource("1_2njd6")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5k8k"]
+atlas = ExtResource("1_2njd6")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uucr5"]
+atlas = ExtResource("1_2njd6")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikt6j"]
+atlas = ExtResource("1_2njd6")
+region = Rect2(320, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fol3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuae1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fttd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5k8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uucr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikt6j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

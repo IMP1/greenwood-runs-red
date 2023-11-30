@@ -1,0 +1,210 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=34 format=3]
+
+[ext_resource type="SpriteFrames" path="res://data/core/sprites/owl.tres" id="1_ciu02"]
+[ext_resource type="Script" path="res://defs/move_action.gd" id="2_2qx4o"]
+[ext_resource type="Script" path="res://defs/card.gd" id="3_xwu2m"]
+[ext_resource type="Script" path="res://defs/attack_action.gd" id="4_6f7u4"]
+[ext_resource type="Script" path="res://defs/evade_action.gd" id="5_b3cb3"]
+[ext_resource type="Script" path="res://defs/status_action.gd" id="6_c0jyn"]
+[ext_resource type="Script" path="res://defs/status.gd" id="7_6a15w"]
+[ext_resource type="Texture2D" path="res://data/core/portraits/owl.png" id="8_biid3"]
+[ext_resource type="Script" path="res://defs/character.gd" id="9_or26s"]
+
+[sub_resource type="Resource" id="Resource_grsms"]
+script = ExtResource("2_2qx4o")
+distance = 1
+jumping = true
+name = "Move 1 🦅"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 3
+
+[sub_resource type="Resource" id="Resource_ll1g6"]
+script = ExtResource("3_xwu2m")
+name = "Flit"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_grsms")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_bs17c"]
+script = ExtResource("2_2qx4o")
+distance = 1
+jumping = true
+name = "Move 1 🦅"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 3
+
+[sub_resource type="Resource" id="Resource_5rytf"]
+script = ExtResource("3_xwu2m")
+name = "Flit"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_bs17c")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_148ug"]
+script = ExtResource("4_6f7u4")
+damage = 1
+piercing = false
+name = "Attack 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_x6yui"]
+script = ExtResource("3_xwu2m")
+name = "Scratch"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_148ug")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_5lq2y"]
+script = ExtResource("4_6f7u4")
+damage = 1
+piercing = false
+name = "Attack 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_s3mhs"]
+script = ExtResource("3_xwu2m")
+name = "Scratch"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_5lq2y")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_iqtsj"]
+script = ExtResource("4_6f7u4")
+damage = 1
+piercing = false
+name = "Attack 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_lq6of"]
+script = ExtResource("4_6f7u4")
+damage = 1
+piercing = false
+name = "Attack 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_fpm4t"]
+script = ExtResource("3_xwu2m")
+name = "Peck"
+energy_cost = 2
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_iqtsj"), SubResource("Resource_lq6of")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_nmubu"]
+script = ExtResource("4_6f7u4")
+damage = 1
+piercing = false
+name = "Attack 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_tyif3"]
+script = ExtResource("4_6f7u4")
+damage = 1
+piercing = false
+name = "Attack 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_cpsat"]
+script = ExtResource("3_xwu2m")
+name = "Peck"
+energy_cost = 2
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_nmubu"), SubResource("Resource_tyif3")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_545pb"]
+script = ExtResource("4_6f7u4")
+damage = 2
+piercing = false
+name = "Attack 2"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_enkg8"]
+script = ExtResource("2_2qx4o")
+distance = 1
+jumping = true
+name = "Move 1 🦅"
+subactions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_545pb")])
+target = 3
+
+[sub_resource type="Resource" id="Resource_b37lr"]
+script = ExtResource("3_xwu2m")
+name = "Rake"
+energy_cost = 2
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_enkg8")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_6mykr"]
+script = ExtResource("5_b3cb3")
+distance = 1
+name = "Evade 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 3
+
+[sub_resource type="Resource" id="Resource_xmccp"]
+script = ExtResource("3_xwu2m")
+name = "Dodge"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_6mykr")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_72ian"]
+script = ExtResource("2_2qx4o")
+distance = 2
+jumping = true
+name = "Move 2 🦅"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 3
+
+[sub_resource type="Resource" id="Resource_mkath"]
+script = ExtResource("3_xwu2m")
+name = "Fly"
+energy_cost = 2
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_72ian")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_aeoec"]
+script = ExtResource("7_6a15w")
+type = 5
+amount = 1
+duration = 0
+
+[sub_resource type="Resource" id="Resource_67gvc"]
+script = ExtResource("6_c0jyn")
+status = SubResource("Resource_aeoec")
+name = "Slowed Enemy 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_jo00x"]
+script = ExtResource("3_xwu2m")
+name = "Screech"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_67gvc")])
+colour = Color(0, 0, 0, 1)
+
+[resource]
+script = ExtResource("9_or26s")
+name = "Owl"
+portrait = ExtResource("8_biid3")
+colour = Color(0.470588, 0.615686, 0.878431, 1)
+max_health = 9
+energy_per_turn = 3
+max_hand_size = 5
+deck = Array[ExtResource("3_xwu2m")]([SubResource("Resource_ll1g6"), SubResource("Resource_5rytf"), SubResource("Resource_x6yui"), SubResource("Resource_s3mhs"), SubResource("Resource_fpm4t"), SubResource("Resource_cpsat"), SubResource("Resource_b37lr"), SubResource("Resource_xmccp"), SubResource("Resource_mkath"), SubResource("Resource_jo00x")])
+battler_sprite = ExtResource("1_ciu02")

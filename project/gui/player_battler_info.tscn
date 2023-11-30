@@ -1,0 +1,202 @@
+[gd_scene load_steps=12 format=3 uid="uid://yskrqf4opcny"]
+
+[ext_resource type="Theme" uid="uid://dx6v3834lty7n" path="res://assets/ui_theme.tres" id="1_6ydtp"]
+[ext_resource type="Script" path="res://gui/player_battler_info.gd" id="1_ln73v"]
+[ext_resource type="Texture2D" uid="uid://bps6n2kkoicla" path="res://assets/icons/stegosaurus-scales.svg" id="2_5c53d"]
+[ext_resource type="Texture2D" uid="uid://xwfj12ccl2m7" path="res://assets/icons/rolling-energy.svg" id="2_70hwa"]
+[ext_resource type="Texture2D" uid="uid://dlfsag7ow00we" path="res://assets/icons/paw-print.svg" id="3_v78em"]
+[ext_resource type="Texture2D" uid="uid://dhv7l2oidbtx" path="res://assets/icons/swan-breeze.svg" id="4_rl21v"]
+[ext_resource type="Texture2D" uid="uid://bjix4ama6qfvo" path="res://assets/icons/card-pick.svg" id="6_22ad3"]
+[ext_resource type="Texture2D" uid="uid://dkmooupataq8n" path="res://assets/icons/card-draw.svg" id="7_molia"]
+[ext_resource type="Texture2D" uid="uid://cfncq8mfl0jhv" path="res://assets/icons/card-burn.svg" id="8_rbxyj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m7o6q"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7433u"]
+bg_color = Color(0, 0.568627, 0.305882, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="PlayerBattlerInfo" type="VBoxContainer"]
+offset_right = 178.0
+offset_bottom = 190.0
+theme = ExtResource("1_6ydtp")
+script = ExtResource("1_ln73v")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Larry the Owl"
+horizontal_alignment = 1
+
+[node name="Health" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Bar" type="ProgressBar" parent="Health"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_m7o6q")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7433u")
+value = 60.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Health"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 18
+text = "HP"
+
+[node name="Value" type="Label" parent="Health"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -61.0
+offset_bottom = 26.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "60 / 100"
+
+[node name="Statuses" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+layout_mode = 2
+
+[node name="Energy" type="HBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Energy"
+
+[node name="TextureRect" type="TextureRect" parent="HFlowContainer/Energy"]
+modulate = Color(1, 1, 0.376471, 1)
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+texture = ExtResource("2_70hwa")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Value" type="Label" parent="HFlowContainer/Energy"]
+layout_mode = 2
+text = "0"
+
+[node name="Movement" type="HBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Movement"
+
+[node name="TextureRect" type="TextureRect" parent="HFlowContainer/Movement"]
+modulate = Color(1, 0.470588, 0.52549, 1)
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+texture = ExtResource("3_v78em")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Value" type="Label" parent="HFlowContainer/Movement"]
+layout_mode = 2
+text = "0"
+
+[node name="Evasion" type="HBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Evasion"
+
+[node name="TextureRect" type="TextureRect" parent="HFlowContainer/Evasion"]
+modulate = Color(0.376471, 0.745098, 0.882353, 1)
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+texture = ExtResource("4_rl21v")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Value" type="Label" parent="HFlowContainer/Evasion"]
+layout_mode = 2
+text = "0"
+
+[node name="Defence" type="HBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Defence"
+
+[node name="TextureRect" type="TextureRect" parent="HFlowContainer/Defence"]
+modulate = Color(0.501961, 0.682353, 0.403922, 1)
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+texture = ExtResource("2_5c53d")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Value" type="Label" parent="HFlowContainer/Defence"]
+layout_mode = 2
+text = "0"
+
+[node name="Card" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Hand" type="VBoxContainer" parent="Card"]
+layout_mode = 2
+size_flags_horizontal = 6
+tooltip_text = "Cards in Hand"
+theme_override_constants/separation = -20
+
+[node name="TextureRect" type="TextureRect" parent="Card/Hand"]
+custom_minimum_size = Vector2(48, 64)
+layout_mode = 2
+texture = ExtResource("6_22ad3")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Card/Hand"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Deck" type="VBoxContainer" parent="Card"]
+layout_mode = 2
+size_flags_horizontal = 6
+tooltip_text = "Cards in Deck"
+theme_override_constants/separation = -20
+
+[node name="TextureRect" type="TextureRect" parent="Card/Deck"]
+custom_minimum_size = Vector2(48, 64)
+layout_mode = 2
+texture = ExtResource("7_molia")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Card/Deck"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Discard" type="VBoxContainer" parent="Card"]
+layout_mode = 2
+size_flags_horizontal = 6
+tooltip_text = "Cards in Discard Pile"
+theme_override_constants/separation = -20
+
+[node name="TextureRect" type="TextureRect" parent="Card/Discard"]
+custom_minimum_size = Vector2(48, 64)
+layout_mode = 2
+texture = ExtResource("8_rbxyj")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Card/Discard"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1

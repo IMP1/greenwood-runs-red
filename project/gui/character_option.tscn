@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://jm4ulq7nainv"]
+
+[ext_resource type="Texture2D" uid="uid://dv77ad85iwce5" path="res://assets/characters/fox_face.png" id="1_xvvt4"]
+[ext_resource type="Script" path="res://gui/character_option.gd" id="2_wljr5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20u7j"]
+resource_local_to_scene = true
+bg_color = Color(1, 0.372549, 0, 0.752941)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjsw6"]
+resource_local_to_scene = true
+bg_color = Color(1, 0.372549, 0, 0.752941)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ebo4"]
+resource_local_to_scene = true
+bg_color = Color(1, 0.372549, 0, 0.752941)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wwl3d"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_qmm8r"]
+
+[node name="CharacterOption" type="Button"]
+custom_minimum_size = Vector2(96, 96)
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 96
+theme_override_styles/normal = SubResource("StyleBoxFlat_20u7j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wjsw6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2ebo4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wwl3d")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_qmm8r")
+icon = ExtResource("1_xvvt4")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_wljr5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Fox"
+horizontal_alignment = 1

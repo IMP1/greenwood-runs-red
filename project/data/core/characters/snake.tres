@@ -1,0 +1,191 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=33 format=3]
+
+[ext_resource type="SpriteFrames" path="res://data/core/sprites/snake.tres" id="1_joeda"]
+[ext_resource type="Script" path="res://defs/attack_action.gd" id="2_yjlo2"]
+[ext_resource type="Script" path="res://defs/status_action.gd" id="3_7v751"]
+[ext_resource type="Script" path="res://defs/status.gd" id="4_glksc"]
+[ext_resource type="Script" path="res://defs/card.gd" id="5_alok3"]
+[ext_resource type="Script" path="res://defs/defend_action.gd" id="6_o82ih"]
+[ext_resource type="Script" path="res://defs/evade_action.gd" id="7_ta0da"]
+[ext_resource type="Texture2D" path="res://data/core/portraits/snake.png" id="8_fxaqa"]
+[ext_resource type="Script" path="res://defs/character.gd" id="9_2tm0h"]
+
+[sub_resource type="Resource" id="Resource_cg08d"]
+script = ExtResource("4_glksc")
+type = 1
+amount = 1
+duration = 4
+
+[sub_resource type="Resource" id="Resource_ki887"]
+script = ExtResource("3_7v751")
+status = SubResource("Resource_cg08d")
+name = "Poisoned Enemy 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_tybw0"]
+script = ExtResource("2_yjlo2")
+damage = 1
+piercing = false
+name = "Attack 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_ki887")])
+target = 5
+
+[sub_resource type="Resource" id="Resource_ukw7k"]
+script = ExtResource("5_alok3")
+name = "Venomous Bite"
+energy_cost = 2
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_tybw0")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_lo88w"]
+script = ExtResource("4_glksc")
+type = 1
+amount = 1
+duration = 4
+
+[sub_resource type="Resource" id="Resource_st15r"]
+script = ExtResource("3_7v751")
+status = SubResource("Resource_lo88w")
+name = "Poisoned Enemy 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_rbinn"]
+script = ExtResource("2_yjlo2")
+damage = 1
+piercing = false
+name = "Attack 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_st15r")])
+target = 5
+
+[sub_resource type="Resource" id="Resource_8w4t4"]
+script = ExtResource("5_alok3")
+name = "Venomous Bite"
+energy_cost = 2
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_rbinn")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_ehu6u"]
+script = ExtResource("6_o82ih")
+defence = 1
+name = "Defend 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 3
+
+[sub_resource type="Resource" id="Resource_ie35r"]
+script = ExtResource("5_alok3")
+name = "Coil"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_ehu6u")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_3onxj"]
+script = ExtResource("6_o82ih")
+defence = 1
+name = "Defend 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 3
+
+[sub_resource type="Resource" id="Resource_0dds6"]
+script = ExtResource("5_alok3")
+name = "Coil"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_3onxj")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_2311o"]
+script = ExtResource("4_glksc")
+type = 0
+amount = 1
+duration = 4
+
+[sub_resource type="Resource" id="Resource_du6xe"]
+script = ExtResource("3_7v751")
+status = SubResource("Resource_2311o")
+name = "Wounded Enemy 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_hpfom"]
+script = ExtResource("2_yjlo2")
+damage = 0
+piercing = false
+name = "Attack 0"
+subactions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_du6xe")])
+target = 5
+
+[sub_resource type="Resource" id="Resource_hbh3u"]
+script = ExtResource("5_alok3")
+name = "Piercing Fang"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_hpfom")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_37rvc"]
+script = ExtResource("4_glksc")
+type = 4
+amount = 1
+duration = 0
+
+[sub_resource type="Resource" id="Resource_rk1d8"]
+script = ExtResource("3_7v751")
+status = SubResource("Resource_37rvc")
+name = "Immobilised Enemy 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_wr12f"]
+script = ExtResource("5_alok3")
+name = "Paralyse"
+energy_cost = 2
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_rk1d8")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_qd8mf"]
+script = ExtResource("7_ta0da")
+distance = 1
+name = "Evade 1"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 3
+
+[sub_resource type="Resource" id="Resource_he1xk"]
+script = ExtResource("5_alok3")
+name = "Dodge"
+energy_cost = 1
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_qd8mf")])
+colour = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_sytps"]
+script = ExtResource("2_yjlo2")
+damage = 2
+piercing = false
+name = "Attack 2"
+subactions = Array[Resource("res://defs/card_action.gd")]([])
+target = 5
+
+[sub_resource type="Resource" id="Resource_57ieq"]
+script = ExtResource("5_alok3")
+name = "Bite"
+energy_cost = 2
+is_exhausted = false
+actions = Array[Resource("res://defs/card_action.gd")]([SubResource("Resource_sytps")])
+colour = Color(0, 0, 0, 1)
+
+[resource]
+script = ExtResource("9_2tm0h")
+name = "Snake"
+portrait = ExtResource("8_fxaqa")
+colour = Color(0.290196, 0.603922, 0.337255, 1)
+max_health = 8
+energy_per_turn = 3
+max_hand_size = 4
+deck = Array[ExtResource("5_alok3")]([SubResource("Resource_ukw7k"), SubResource("Resource_8w4t4"), SubResource("Resource_ie35r"), SubResource("Resource_0dds6"), SubResource("Resource_hbh3u"), SubResource("Resource_wr12f"), SubResource("Resource_he1xk"), SubResource("Resource_57ieq")])
+battler_sprite = ExtResource("1_joeda")

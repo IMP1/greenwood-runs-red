@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://do0x03rmg7ri5"]
+
+[ext_resource type="PackedScene" uid="uid://dxbmpobtrl47v" path="res://object/clearing.tscn" id="1_nexwg"]
+[ext_resource type="Script" path="res://object/battle_clearing.gd" id="2_a8762"]
+
+[node name="BattleClearing" instance=ExtResource("1_nexwg")]
+script = ExtResource("2_a8762")
+background = null
+possible_encounters = Array[Resource("res://defs/enemy.gd")]([])

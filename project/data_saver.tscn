@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyuv8vuktrllb"]
+
+[ext_resource type="Script" path="res://data_saver.gd" id="1_oe74l"]
+
+[node name="DataSaver" type="Node"]
+script = ExtResource("1_oe74l")

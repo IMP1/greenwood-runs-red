@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxbmpobtrl47v"]
+
+[ext_resource type="Script" path="res://object/clearing.gd" id="1_l8gj3"]
+
+[node name="Clearing" type="Node2D"]
+script = ExtResource("1_l8gj3")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.729412, 0.611765, 0.435294, 1)
+polygon = PackedVector2Array(0, -45, 12, -41, 24, -36, 37, -34, 43, -25, 47, -13, 51, 0, 49, 12, 45, 19, 42, 26, 36, 31, 28, 35, 20, 39, 10, 42, 0, 43, -17, 40, -23, 36, -30, 32, -35, 25, -41, 19, -44, 11, -44, -1, -43, -19, -39, -29, -33, -36, -23, -43, -12, -42)

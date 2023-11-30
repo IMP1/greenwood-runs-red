@@ -1,0 +1,159 @@
+[gd_scene load_steps=10 format=3 uid="uid://cm8fst364q4y5"]
+
+[ext_resource type="Theme" uid="uid://dx6v3834lty7n" path="res://assets/ui_theme.tres" id="1_3yayi"]
+[ext_resource type="Script" path="res://gui/enemy_battler_info.gd" id="2_1m478"]
+[ext_resource type="Texture2D" uid="uid://xwfj12ccl2m7" path="res://assets/icons/rolling-energy.svg" id="3_atl8r"]
+[ext_resource type="Texture2D" uid="uid://dlfsag7ow00we" path="res://assets/icons/paw-print.svg" id="4_s2v7i"]
+[ext_resource type="Texture2D" uid="uid://dhv7l2oidbtx" path="res://assets/icons/swan-breeze.svg" id="5_ue24b"]
+[ext_resource type="Texture2D" uid="uid://bps6n2kkoicla" path="res://assets/icons/stegosaurus-scales.svg" id="6_di5mq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sg70d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4uxu"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_euoca"]
+bg_color = Color(0, 0.568627, 0.305882, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="EnemyBattlerInfo" type="VBoxContainer"]
+offset_right = 157.0
+offset_bottom = 136.0
+theme = ExtResource("1_3yayi")
+theme_override_constants/separation = -8
+script = ExtResource("2_1m478")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Rat"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 24
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sg70d")
+
+[node name="Health" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+
+[node name="Bar" type="ProgressBar" parent="Health"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_c4uxu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_euoca")
+value = 20.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Health"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 18
+text = "HP"
+
+[node name="Value" type="Label" parent="Health"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "20/100"
+
+[node name="Statuses" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Energy" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Energy"
+theme_override_constants/separation = -16
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Energy"]
+modulate = Color(1, 1, 0.376471, 1)
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+texture = ExtResource("3_atl8r")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Value" type="Label" parent="HBoxContainer/Energy"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Movement" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Movement"
+theme_override_constants/separation = -16
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Movement"]
+modulate = Color(1, 0.470588, 0.52549, 1)
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+texture = ExtResource("4_s2v7i")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Value" type="Label" parent="HBoxContainer/Movement"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Evasion" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Evasion"
+theme_override_constants/separation = -16
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Evasion"]
+modulate = Color(0.376471, 0.745098, 0.882353, 1)
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+texture = ExtResource("5_ue24b")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Value" type="Label" parent="HBoxContainer/Evasion"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Defence" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Defence"
+theme_override_constants/separation = -16
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Defence"]
+modulate = Color(0.501961, 0.682353, 0.403922, 1)
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+texture = ExtResource("6_di5mq")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Value" type="Label" parent="HBoxContainer/Defence"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1

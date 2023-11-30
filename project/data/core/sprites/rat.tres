@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://p6rnp8axmgp1"]
+
+[ext_resource type="Texture2D" uid="uid://cyx8cvr1s4h1g" path="res://assets/battlers/rat.png" id="1_n11ea"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewi2x"]
+atlas = ExtResource("1_n11ea")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06llu"]
+atlas = ExtResource("1_n11ea")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa3ep"]
+atlas = ExtResource("1_n11ea")
+region = Rect2(512, 64, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewi2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06llu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qa3ep")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

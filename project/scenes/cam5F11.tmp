@@ -1,0 +1,869 @@
+[gd_scene load_steps=14 format=3 uid="uid://cewc40tfocmbw"]
+
+[ext_resource type="Script" path="res://scenes/campaign.gd" id="1_pfic5"]
+[ext_resource type="Script" path="res://util/top_down_parallax.gd" id="2_15w3t"]
+[ext_resource type="Theme" uid="uid://dx6v3834lty7n" path="res://assets/ui_theme.tres" id="2_f87p0"]
+[ext_resource type="Script" path="res://gui/modal.gd" id="4_3pt22"]
+
+[sub_resource type="Gradient" id="Gradient_v2y8d"]
+colors = PackedColorArray(0.817521, 0.817521, 0.817521, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wfngi"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f3s3r"]
+seamless = true
+color_ramp = SubResource("Gradient_v2y8d")
+noise = SubResource("FastNoiseLite_wfngi")
+
+[sub_resource type="Gradient" id="Gradient_oyg6c"]
+colors = PackedColorArray(0.775063, 0.775063, 0.775063, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fpequ"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c0yjp"]
+seamless = true
+color_ramp = SubResource("Gradient_oyg6c")
+noise = SubResource("FastNoiseLite_fpequ")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtlog"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a6dfo"]
+bg_color = Color(0.25098, 0.317647, 0.231373, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.25098, 0.317647, 0.231373, 0)
+border_blend = true
+expand_margin_left = 16.0
+expand_margin_top = 16.0
+expand_margin_right = 16.0
+expand_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jhi3s"]
+
+[node name="Campaign" type="Node2D"]
+script = ExtResource("1_pfic5")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Ground" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Grass" type="Polygon2D" parent="ParallaxBackground/Ground"]
+texture_repeat = 2
+color = Color(0.368627, 0.466667, 0.317647, 1)
+texture = SubResource("NoiseTexture2D_f3s3r")
+polygon = PackedVector2Array(-319, -296, 1438, -293, 1445, 901, -319, 894)
+
+[node name="PathBlend" type="Polygon2D" parent="ParallaxBackground/Ground"]
+modulate = Color(1, 1, 1, 0.596078)
+texture_repeat = 2
+color = Color(0.729412, 0.611765, 0.435294, 1)
+texture = SubResource("NoiseTexture2D_c0yjp")
+polygon = PackedVector2Array(535, -47, 534, 36, 548, 76, 567, 88, 629, 96, 719, 123, 774, 162, 814, 218, 826, 296, 799, 340, 746, 371, 696, 387, 678, 425, 722, 505, 764, 587, 778, 671, 796, 781, 856, 921, 890, 1047, 806, 1045, 768, 937, 724, 783, 716, 675, 704, 603, 654, 547, 606, 505, 560, 519, 503, 583, 438, 624, 356, 661, 290, 693, 227, 766, 221, 828, 225, 945, 210, 1034, 151, 1028, 140, 957, 128, 799, 160, 717, 230, 647, 296, 613, 398, 577, 456, 533, 442, 507, 417, 491, 364, 473, 289, 456, 233, 421, 217, 328, 259, 253, 317, 205, 397, 155, 458, 131, 484, 107, 486, 86, 476, 41, 464, -6, 464, -73, 472, -210, 456, -337, 532, -342, 540, -186)
+
+[node name="PathBlend2" type="Polygon2D" parent="ParallaxBackground/Ground"]
+modulate = Color(1, 1, 1, 0.596078)
+texture_repeat = 2
+color = Color(0.729412, 0.611765, 0.435294, 1)
+texture = SubResource("NoiseTexture2D_c0yjp")
+polygon = PackedVector2Array(527, -87, 525, -15, 525, 34, 536, 69, 549, 89, 572, 99, 600, 101, 630, 107, 683, 119, 731, 142, 780, 182, 808, 230, 816, 290, 806, 314, 790, 334, 756, 355, 723, 370, 693, 378, 678, 399, 669, 422, 678, 441, 704, 488, 740, 560, 761, 603, 772, 679, 786, 779, 818, 859, 856, 947, 883, 1054, 815, 1053, 776, 937, 733, 782, 728, 712, 723, 640, 715, 599, 670, 553, 642, 517, 614, 496, 572, 504, 543, 516, 513, 556, 474, 592, 420, 619, 358, 647, 291, 681, 248, 718, 220, 757, 212, 821, 214, 950, 200, 1042, 160, 1037, 150, 957, 138, 797, 168, 722, 241, 652, 309, 619, 393, 589, 425, 568, 455, 548, 467, 530, 453, 505, 429, 484, 363, 462, 293, 444, 244, 412, 235, 333, 266, 266, 316, 224, 365, 187, 435, 155, 471, 139, 495, 116, 497, 86, 489, 44, 478, -4, 482, -65, 483, -202, 470, -347, 515, -345, 527, -190)
+
+[node name="TreeBottoms" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_filter = 1
+script = ExtResource("2_15w3t")
+factor = 0.1
+
+[node name="TreeMiddles" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_filter = 1
+motion_scale = Vector2(1.04, 1.04)
+script = ExtResource("2_15w3t")
+factor = 0.8
+
+[node name="TreeTops" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_filter = 1
+motion_scale = Vector2(1.08, 1.08)
+script = ExtResource("2_15w3t")
+factor = 1.4
+
+[node name="Ui" type="ParallaxLayer" parent="ParallaxBackground"]
+script = ExtResource("2_15w3t")
+factor = 0.6
+
+[node name="Button" type="Button" parent="ParallaxBackground/Ui"]
+offset_left = 350.0
+offset_top = 592.0
+offset_right = 425.0
+offset_bottom = 623.0
+mouse_default_cursor_shape = 2
+text = "Option 1"
+
+[node name="Button2" type="Button" parent="ParallaxBackground/Ui"]
+offset_left = 702.0
+offset_top = 587.0
+offset_right = 777.0
+offset_bottom = 618.0
+mouse_default_cursor_shape = 2
+text = "Option 2"
+
+[node name="CharacterInfo" type="Button" parent="ParallaxBackground/Ui"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 444.0
+offset_top = 176.0
+offset_right = 624.0
+offset_bottom = 395.0
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_f87p0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wtlog")
+
+[node name="Panel" type="Panel" parent="ParallaxBackground/Ui/CharacterInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Info" type="VBoxContainer" parent="ParallaxBackground/Ui/CharacterInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -7.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Portrait" type="TextureRect" parent="ParallaxBackground/Ui/CharacterInfo/Info"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Experience" type="HBoxContainer" parent="ParallaxBackground/Ui/CharacterInfo/Info"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Experience"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "XP:"
+
+[node name="ProgressBar" type="ProgressBar" parent="ParallaxBackground/Ui/CharacterInfo/Info/Experience"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 1
+show_percentage = false
+
+[node name="From" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Experience/ProgressBar"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -28.0
+offset_right = 40.0
+offset_bottom = 15.0
+grow_vertical = 2
+text = "1"
+
+[node name="To" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Experience/ProgressBar"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -27.0
+offset_bottom = 15.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "2"
+horizontal_alignment = 2
+
+[node name="Stats" type="HBoxContainer" parent="ParallaxBackground/Ui/CharacterInfo/Info"]
+layout_mode = 2
+alignment = 1
+
+[node name="Energy" type="VBoxContainer" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats/Energy"]
+layout_mode = 2
+text = "⚡"
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats/Energy"]
+layout_mode = 2
+text = "3"
+horizontal_alignment = 1
+
+[node name="HandSize" type="VBoxContainer" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats/HandSize"]
+layout_mode = 2
+text = "🖐"
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats/HandSize"]
+layout_mode = 2
+text = "5"
+horizontal_alignment = 1
+
+[node name="Health" type="VBoxContainer" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats/Health"]
+layout_mode = 2
+text = "❤"
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats/Health"]
+layout_mode = 2
+text = "8"
+horizontal_alignment = 1
+
+[node name="DeckSize" type="VBoxContainer" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats/DeckSize"]
+layout_mode = 2
+text = "🃏"
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="ParallaxBackground/Ui/CharacterInfo/Info/Stats/DeckSize"]
+layout_mode = 2
+text = "10"
+horizontal_alignment = 1
+
+[node name="Woodland" type="Node2D" parent="."]
+
+[node name="1" type="Marker2D" parent="Woodland"]
+position = Vector2(464, 93)
+gizmo_extents = 16.0
+
+[node name="2" type="Marker2D" parent="Woodland"]
+position = Vector2(458, 53)
+gizmo_extents = 16.0
+
+[node name="3" type="Marker2D" parent="Woodland"]
+position = Vector2(446, 16)
+gizmo_extents = 16.0
+
+[node name="4" type="Marker2D" parent="Woodland"]
+position = Vector2(431, 117)
+gizmo_extents = 16.0
+
+[node name="5" type="Marker2D" parent="Woodland"]
+position = Vector2(383, 126)
+gizmo_extents = 16.0
+
+[node name="6" type="Marker2D" parent="Woodland"]
+position = Vector2(340, 151)
+gizmo_extents = 16.0
+
+[node name="7" type="Marker2D" parent="Woodland"]
+position = Vector2(298, 181)
+gizmo_extents = 16.0
+
+[node name="8" type="Marker2D" parent="Woodland"]
+position = Vector2(260, 211)
+gizmo_extents = 16.0
+
+[node name="9" type="Marker2D" parent="Woodland"]
+position = Vector2(223, 250)
+gizmo_extents = 16.0
+
+[node name="10" type="Marker2D" parent="Woodland"]
+position = Vector2(196, 303)
+gizmo_extents = 16.0
+
+[node name="11" type="Marker2D" parent="Woodland"]
+position = Vector2(160, 257)
+gizmo_extents = 16.0
+
+[node name="12" type="Marker2D" parent="Woodland"]
+position = Vector2(297, 132)
+gizmo_extents = 16.0
+
+[node name="13" type="Marker2D" parent="Woodland"]
+position = Vector2(407, 75)
+gizmo_extents = 16.0
+
+[node name="14" type="Marker2D" parent="Woodland"]
+position = Vector2(560, 9)
+gizmo_extents = 16.0
+
+[node name="15" type="Marker2D" parent="Woodland"]
+position = Vector2(579, 56)
+gizmo_extents = 16.0
+
+[node name="16" type="Marker2D" parent="Woodland"]
+position = Vector2(642, 74)
+gizmo_extents = 16.0
+
+[node name="17" type="Marker2D" parent="Woodland"]
+position = Vector2(699, 94)
+gizmo_extents = 16.0
+
+[node name="18" type="Marker2D" parent="Woodland"]
+position = Vector2(689, 40)
+gizmo_extents = 16.0
+
+[node name="19" type="Marker2D" parent="Woodland"]
+position = Vector2(758, 110)
+gizmo_extents = 16.0
+
+[node name="20" type="Marker2D" parent="Woodland"]
+position = Vector2(806, 152)
+gizmo_extents = 16.0
+
+[node name="21" type="Marker2D" parent="Woodland"]
+position = Vector2(563, -38)
+gizmo_extents = 16.0
+
+[node name="22" type="Marker2D" parent="Woodland"]
+position = Vector2(440, -38)
+gizmo_extents = 16.0
+
+[node name="23" type="Marker2D" parent="Woodland"]
+position = Vector2(602, -18)
+gizmo_extents = 16.0
+
+[node name="24" type="Marker2D" parent="Woodland"]
+position = Vector2(839, 197)
+gizmo_extents = 16.0
+
+[node name="25" type="Marker2D" parent="Woodland"]
+position = Vector2(850, 263)
+gizmo_extents = 16.0
+
+[node name="26" type="Marker2D" parent="Woodland"]
+position = Vector2(842, 329)
+gizmo_extents = 16.0
+
+[node name="27" type="Marker2D" parent="Woodland"]
+position = Vector2(801, 375)
+gizmo_extents = 16.0
+
+[node name="28" type="Marker2D" parent="Woodland"]
+position = Vector2(753, 395)
+gizmo_extents = 16.0
+
+[node name="29" type="Marker2D" parent="Woodland"]
+position = Vector2(711, 425)
+gizmo_extents = 16.0
+
+[node name="30" type="Marker2D" parent="Woodland"]
+position = Vector2(732, 475)
+gizmo_extents = 16.0
+
+[node name="31" type="Marker2D" parent="Woodland"]
+position = Vector2(777, 529)
+gizmo_extents = 16.0
+
+[node name="32" type="Marker2D" parent="Woodland"]
+position = Vector2(803, 586)
+gizmo_extents = 16.0
+
+[node name="33" type="Marker2D" parent="Woodland"]
+position = Vector2(804, 647)
+gizmo_extents = 16.0
+
+[node name="34" type="Marker2D" parent="Woodland"]
+position = Vector2(679, 652)
+gizmo_extents = 16.0
+
+[node name="35" type="Marker2D" parent="Woodland"]
+position = Vector2(668, 609)
+gizmo_extents = 16.0
+
+[node name="36" type="Marker2D" parent="Woodland"]
+position = Vector2(633, 564)
+gizmo_extents = 16.0
+
+[node name="37" type="Marker2D" parent="Woodland"]
+position = Vector2(594, 525)
+gizmo_extents = 16.0
+
+[node name="38" type="Marker2D" parent="Woodland"]
+position = Vector2(552, 557)
+gizmo_extents = 16.0
+
+[node name="39" type="Marker2D" parent="Woodland"]
+position = Vector2(515, 591)
+gizmo_extents = 16.0
+
+[node name="40" type="Marker2D" parent="Woodland"]
+position = Vector2(470, 626)
+gizmo_extents = 16.0
+
+[node name="41" type="Marker2D" parent="Woodland"]
+position = Vector2(415, 660)
+gizmo_extents = 16.0
+
+[node name="42" type="Marker2D" parent="Woodland"]
+position = Vector2(361, 683)
+gizmo_extents = 16.0
+
+[node name="43" type="Marker2D" parent="Woodland"]
+position = Vector2(410, 706)
+gizmo_extents = 16.0
+
+[node name="44" type="Marker2D" parent="Woodland"]
+position = Vector2(428, 528)
+gizmo_extents = 16.0
+
+[node name="45" type="Marker2D" parent="Woodland"]
+position = Vector2(385, 503)
+gizmo_extents = 16.0
+
+[node name="46" type="Marker2D" parent="Woodland"]
+position = Vector2(328, 489)
+gizmo_extents = 16.0
+
+[node name="47" type="Marker2D" parent="Woodland"]
+position = Vector2(269, 468)
+gizmo_extents = 16.0
+
+[node name="48" type="Marker2D" parent="Woodland"]
+position = Vector2(217, 440)
+gizmo_extents = 16.0
+
+[node name="49" type="Marker2D" parent="Woodland"]
+position = Vector2(204, 378)
+gizmo_extents = 16.0
+
+[node name="50" type="Marker2D" parent="Woodland"]
+position = Vector2(167, 424)
+gizmo_extents = 16.0
+
+[node name="51" type="Marker2D" parent="Woodland"]
+position = Vector2(377, 558)
+gizmo_extents = 16.0
+
+[node name="52" type="Marker2D" parent="Woodland"]
+position = Vector2(321, 577)
+gizmo_extents = 16.0
+
+[node name="53" type="Marker2D" parent="Woodland"]
+position = Vector2(268, 603)
+gizmo_extents = 16.0
+
+[node name="54" type="Marker2D" parent="Woodland"]
+position = Vector2(210, 630)
+gizmo_extents = 16.0
+
+[node name="55" type="Marker2D" parent="Woodland"]
+position = Vector2(173, 671)
+gizmo_extents = 16.0
+
+[node name="56" type="Marker2D" parent="Woodland"]
+position = Vector2(329, 533)
+gizmo_extents = 16.0
+
+[node name="57" type="Marker2D" parent="Woodland"]
+position = Vector2(285, 516)
+gizmo_extents = 16.0
+
+[node name="58" type="Marker2D" parent="Woodland"]
+position = Vector2(255, 561)
+gizmo_extents = 16.0
+
+[node name="59" type="Marker2D" parent="Woodland"]
+position = Vector2(576, 601)
+gizmo_extents = 16.0
+
+[node name="60" type="Marker2D" parent="Woodland"]
+position = Vector2(528, 649)
+gizmo_extents = 16.0
+
+[node name="61" type="Marker2D" parent="Woodland"]
+position = Vector2(620, 631)
+gizmo_extents = 16.0
+
+[node name="62" type="Marker2D" parent="Woodland"]
+position = Vector2(632, 27)
+gizmo_extents = 16.0
+
+[node name="63" type="Marker2D" parent="Woodland"]
+position = Vector2(186, 215)
+gizmo_extents = 16.0
+
+[node name="64" type="Marker2D" parent="Woodland"]
+position = Vector2(146, 317)
+gizmo_extents = 16.0
+
+[node name="65" type="Marker2D" parent="Woodland"]
+position = Vector2(107, 382)
+gizmo_extents = 16.0
+
+[node name="66" type="Marker2D" parent="Woodland"]
+position = Vector2(120, 441)
+gizmo_extents = 16.0
+
+[node name="67" type="Marker2D" parent="Woodland"]
+position = Vector2(66, 428)
+gizmo_extents = 16.0
+
+[node name="68" type="Marker2D" parent="Woodland"]
+position = Vector2(56, 368)
+gizmo_extents = 16.0
+
+[node name="69" type="Marker2D" parent="Woodland"]
+position = Vector2(84, 313)
+gizmo_extents = 16.0
+
+[node name="70" type="Marker2D" parent="Woodland"]
+position = Vector2(61, 253)
+gizmo_extents = 16.0
+
+[node name="71" type="Marker2D" parent="Woodland"]
+position = Vector2(780, 439)
+gizmo_extents = 16.0
+
+[node name="72" type="Marker2D" parent="Woodland"]
+position = Vector2(816, 478)
+gizmo_extents = 16.0
+
+[node name="73" type="Marker2D" parent="Woodland"]
+position = Vector2(845, 548)
+gizmo_extents = 16.0
+
+[node name="74" type="Marker2D" parent="Woodland"]
+position = Vector2(854, 625)
+gizmo_extents = 16.0
+
+[node name="75" type="Marker2D" parent="Woodland"]
+position = Vector2(898, 304)
+gizmo_extents = 16.0
+
+[node name="76" type="Marker2D" parent="Woodland"]
+position = Vector2(864, 149)
+gizmo_extents = 16.0
+
+[node name="77" type="Marker2D" parent="Woodland"]
+position = Vector2(809, 101)
+gizmo_extents = 16.0
+
+[node name="78" type="Marker2D" parent="Woodland"]
+position = Vector2(878, 88)
+gizmo_extents = 16.0
+
+[node name="79" type="Marker2D" parent="Woodland"]
+position = Vector2(827, 44)
+gizmo_extents = 16.0
+
+[node name="80" type="Marker2D" parent="Woodland"]
+position = Vector2(887, 28)
+gizmo_extents = 16.0
+
+[node name="81" type="Marker2D" parent="Woodland"]
+position = Vector2(832, -13)
+gizmo_extents = 16.0
+
+[node name="82" type="Marker2D" parent="Woodland"]
+position = Vector2(672, -12)
+gizmo_extents = 16.0
+
+[node name="83" type="Marker2D" parent="Woodland"]
+position = Vector2(755, 10)
+gizmo_extents = 16.0
+
+[node name="84" type="Marker2D" parent="Woodland"]
+position = Vector2(222, 150)
+gizmo_extents = 16.0
+
+[node name="85" type="Marker2D" parent="Woodland"]
+position = Vector2(891, 496)
+gizmo_extents = 16.0
+
+[node name="86" type="Marker2D" parent="Woodland"]
+position = Vector2(938, 467)
+gizmo_extents = 16.0
+
+[node name="87" type="Marker2D" parent="Woodland"]
+position = Vector2(935, 520)
+gizmo_extents = 16.0
+
+[node name="88" type="Marker2D" parent="Woodland"]
+position = Vector2(978, 493)
+gizmo_extents = 16.0
+
+[node name="89" type="Marker2D" parent="Woodland"]
+position = Vector2(975, 441)
+gizmo_extents = 16.0
+
+[node name="90" type="Marker2D" parent="Woodland"]
+position = Vector2(996, 394)
+gizmo_extents = 16.0
+
+[node name="91" type="Marker2D" parent="Woodland"]
+position = Vector2(1024, 430)
+gizmo_extents = 16.0
+
+[node name="92" type="Marker2D" parent="Woodland"]
+position = Vector2(1007, 470)
+gizmo_extents = 16.0
+
+[node name="93" type="Marker2D" parent="Woodland"]
+position = Vector2(1040, 513)
+gizmo_extents = 16.0
+
+[node name="94" type="Marker2D" parent="Woodland"]
+position = Vector2(999, 541)
+gizmo_extents = 16.0
+
+[node name="95" type="Marker2D" parent="Woodland"]
+position = Vector2(951, 558)
+gizmo_extents = 16.0
+
+[node name="96" type="Marker2D" parent="Woodland"]
+position = Vector2(986, 587)
+gizmo_extents = 16.0
+
+[node name="97" type="Marker2D" parent="Woodland"]
+position = Vector2(1029, 572)
+gizmo_extents = 16.0
+
+[node name="98" type="Marker2D" parent="Woodland"]
+position = Vector2(1064, 546)
+gizmo_extents = 16.0
+
+[node name="99" type="Marker2D" parent="Woodland"]
+position = Vector2(1083, 510)
+gizmo_extents = 16.0
+
+[node name="100" type="Marker2D" parent="Woodland"]
+position = Vector2(1100, 537)
+gizmo_extents = 16.0
+
+[node name="101" type="Marker2D" parent="Woodland"]
+position = Vector2(1087, 570)
+gizmo_extents = 16.0
+
+[node name="102" type="Marker2D" parent="Woodland"]
+position = Vector2(1119, 560)
+gizmo_extents = 16.0
+
+[node name="103" type="Marker2D" parent="Woodland"]
+position = Vector2(1108, 597)
+gizmo_extents = 16.0
+
+[node name="104" type="Marker2D" parent="Woodland"]
+position = Vector2(1065, 596)
+gizmo_extents = 16.0
+
+[node name="105" type="Marker2D" parent="Woodland"]
+position = Vector2(1121, 517)
+gizmo_extents = 16.0
+
+[node name="106" type="Marker2D" parent="Woodland"]
+position = Vector2(1141, 542)
+gizmo_extents = 16.0
+
+[node name="107" type="Marker2D" parent="Woodland"]
+position = Vector2(1158, 517)
+gizmo_extents = 16.0
+
+[node name="108" type="Marker2D" parent="Woodland"]
+position = Vector2(1174, 543)
+gizmo_extents = 16.0
+
+[node name="109" type="Marker2D" parent="Woodland"]
+position = Vector2(1157, 565)
+gizmo_extents = 16.0
+
+[node name="110" type="Marker2D" parent="Woodland"]
+position = Vector2(1188, 572)
+gizmo_extents = 16.0
+
+[node name="111" type="Marker2D" parent="Woodland"]
+position = Vector2(1189, 520)
+gizmo_extents = 16.0
+
+[node name="112" type="Marker2D" parent="Woodland"]
+position = Vector2(1211, 538)
+gizmo_extents = 16.0
+
+[node name="113" type="Marker2D" parent="Woodland"]
+position = Vector2(1202, 560)
+gizmo_extents = 16.0
+
+[node name="114" type="Marker2D" parent="Woodland"]
+position = Vector2(1144, 597)
+gizmo_extents = 16.0
+
+[node name="115" type="Marker2D" parent="Woodland"]
+position = Vector2(1129, 624)
+gizmo_extents = 16.0
+
+[node name="116" type="Marker2D" parent="Woodland"]
+position = Vector2(1160, 625)
+gizmo_extents = 16.0
+
+[node name="117" type="Marker2D" parent="Woodland"]
+position = Vector2(1148, 649)
+gizmo_extents = 16.0
+
+[node name="118" type="Marker2D" parent="Woodland"]
+position = Vector2(1128, 668)
+gizmo_extents = 16.0
+
+[node name="119" type="Marker2D" parent="Woodland"]
+position = Vector2(1163, 675)
+gizmo_extents = 16.0
+
+[node name="120" type="Marker2D" parent="Woodland"]
+position = Vector2(1144, 695)
+gizmo_extents = 16.0
+
+[node name="121" type="Marker2D" parent="Woodland"]
+position = Vector2(1191, 646)
+gizmo_extents = 16.0
+
+[node name="122" type="Marker2D" parent="Woodland"]
+position = Vector2(1089, 622)
+gizmo_extents = 16.0
+
+[node name="123" type="Marker2D" parent="Woodland"]
+position = Vector2(1107, 651)
+gizmo_extents = 16.0
+
+[node name="124" type="Marker2D" parent="Woodland"]
+position = Vector2(1080, 669)
+gizmo_extents = 16.0
+
+[node name="125" type="Marker2D" parent="Woodland"]
+position = Vector2(1108, 693)
+gizmo_extents = 16.0
+
+[node name="126" type="Marker2D" parent="Woodland"]
+position = Vector2(1071, 698)
+gizmo_extents = 16.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Gui" type="CanvasLayer" parent="."]
+
+[node name="Menu" type="Button" parent="Gui"]
+offset_left = 18.0
+offset_top = 17.0
+offset_right = 93.0
+offset_bottom = 48.0
+mouse_default_cursor_shape = 2
+text = "Menu"
+
+[node name="Centre" type="Control" parent="Gui"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Modal" type="ColorRect" parent="Gui"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.752941)
+script = ExtResource("4_3pt22")
+
+[node name="Character" type="Control" parent="Gui/Modal"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Menu" type="Control" parent="Gui/Modal"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("2_f87p0")
+
+[node name="Panel" type="Panel" parent="Gui/Modal/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.5
+offset_top = -156.0
+offset_right = 131.5
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a6dfo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gui/Modal/Menu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 10.0
+offset_right = -14.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Gui/Modal/Menu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Pause Menu"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Gui/Modal/Menu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jhi3s")
+
+[node name="Resume" type="Button" parent="Gui/Modal/Menu/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Resume
+"
+
+[node name="Settings" type="Button" parent="Gui/Modal/Menu/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="Gui/Modal/Menu/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Save & Quit"
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(581, 320)
+
+[connection signal="pressed" from="ParallaxBackground/Ui/CharacterInfo" to="." method="_show_character_info"]
+[connection signal="pressed" from="Gui/Menu" to="." method="_show_menu"]
+[connection signal="pressed" from="Gui/Modal/Menu/Panel/VBoxContainer/Resume" to="Gui/Modal" method="hide_all"]
+[connection signal="pressed" from="Gui/Modal/Menu/Panel/VBoxContainer/Settings" to="." method="_open_settings"]
+[connection signal="pressed" from="Gui/Modal/Menu/Panel/VBoxContainer/Quit" to="." method="_save_and_quit"]

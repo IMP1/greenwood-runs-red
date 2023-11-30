@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt7pbkskftb73"]
+
+[ext_resource type="PackedScene" uid="uid://dxbmpobtrl47v" path="res://object/clearing.tscn" id="1_f8nvm"]
+[ext_resource type="Script" path="res://object/shrine_clearing.gd" id="2_w1hkp"]
+
+[node name="ShrineClearing" instance=ExtResource("1_f8nvm")]
+script = ExtResource("2_w1hkp")

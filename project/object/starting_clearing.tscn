@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://jet1u1cjcr57"]
+
+[ext_resource type="PackedScene" uid="uid://dxbmpobtrl47v" path="res://object/clearing.tscn" id="1_ay17s"]
+[ext_resource type="Script" path="res://object/starting_clearing.gd" id="2_pd5ix"]
+
+[node name="StartingClearing" instance=ExtResource("1_ay17s")]
+script = ExtResource("2_pd5ix")
