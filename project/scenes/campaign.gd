@@ -7,6 +7,8 @@ const CLEARING_BUTTON := preload("res://gui/clearing_button.tscn") as PackedScen
 
 @export var progress: CampaignProgress
 
+@onready var _fog := $Fog as Node2D
+@onready var _fog_clearing_list := $Fog/Clearings as Node2D
 @onready var _current_clearing := $Forest/Clearings/StartingClearing as Clearing
 @onready var _camera := $Camera2D as Camera2D
 @onready var _adjacent_clearing_list := $Forest/Gui/AdjacentClearings as Node2D
@@ -18,10 +20,27 @@ func _ready() -> void:
 	_woodland.call_deferred("generate_woodland")
 	if not progress:
 		return
-	if progress.current_clearing:
+	progress.visited_clearings.clear()
+	progress.current_clearing = ""
+	if not progress.current_clearing.is_empty():
 		print("Starting at %s" % progress.current_clearing)
 		_current_clearing = get_node(progress.current_clearing) as Clearing
+	_setup_clearings()
 	_setup_options()
+
+
+func _setup_clearings() -> void:
+	_fog.visible = true
+	for clearing_path in progress.visited_clearings:
+		var clearing := get_node(clearing_path) as Clearing
+		clearing.times_visited += 1
+		clearing.visible = true
+	for child in _fog_clearing_list.get_children():
+		var clearing := child as FogClearing
+		clearing.visible = (clearing.clearing.times_visited > 0)
+	if progress.visited_clearings.is_empty():
+		await get_tree().create_timer(0.5).timeout
+		_move_to_clearing(_current_clearing)
 
 
 func _setup_options() -> void:
@@ -37,10 +56,31 @@ func _setup_options() -> void:
 
 
 func _clear_fog(clearing: Clearing, duration: float) -> void:
-#	var tween := create_tween()
-	# TODO: Get particular fog bits
-	# TODO: Fade out / Recede 
-	pass
+	const transparent := Color(1, 1, 1, 0)
+	const revealed := Color(1, 1, 1, 1)
+	@warning_ignore("unassigned_variable")
+	var fog_clearings: Array[FogClearing]
+	fog_clearings.assign(_fog_clearing_list.get_children().filter(func(child: Node) -> bool:
+		return child is FogClearing and (child as FogClearing).clearing == clearing))
+	if fog_clearings.is_empty():
+		print("No fog clearings for clearing %s" % clearing.name)
+		return
+	var tween := create_tween()
+	for fog_clearing in fog_clearings:
+		fog_clearing.visible = true
+		fog_clearing.modulate = transparent
+		tween.parallel().tween_property(fog_clearing, "modulate", revealed, duration)
+
+
+func _is_clearing_on_screen(clearing: Clearing) -> bool:
+	var width := _camera.get_viewport_rect().size.x / 4
+	var height := _camera.get_viewport_rect().size.y / 4
+	var offset := clearing.position - _camera.position
+	if absf(offset.x) > width:
+		return false
+	if absf(offset.y) > height:
+		return false
+	return true
 
 
 func _move_to_clearing(clearing: Clearing) -> void:
@@ -48,10 +88,13 @@ func _move_to_clearing(clearing: Clearing) -> void:
 	progress.visited_clearings.push_back(clearing_path)
 	var duration := 0.6
 	var tween := create_tween()
-	_clear_fog(clearing, duration)
+	if clearing.times_visited == 0:
+		_clear_fog(clearing, duration)
+	clearing.times_visited += 1
 	tween.tween_property(_char_info, "position", clearing.position, duration)
-	# TODO: If the new clearing isn't sufficiently in the centre of the screen, pan the camera
-	tween.parallel().tween_property(_camera, "position", _camera.position, duration)
+	if not _is_clearing_on_screen(clearing):
+		# TODO: Move to edge of the camera pan boundary, rather than pan so clearing is centred
+		tween.parallel().tween_property(_camera, "position", clearing.position, duration)
 	await tween.finished
 	_current_clearing = clearing
 	_setup_options()
@@ -63,7 +106,6 @@ func _move_to_clearing(clearing: Clearing) -> void:
 		if chance < battle.battle_probability and battle.possible_encounters.size() > 0:
 			var enemy := battle.possible_encounters.pick_random() as EnemyData
 			await _battle(enemy)
-			print("After the battle")
 	elif _current_clearing is BossClearing:
 		print("boss")
 	elif _current_clearing is ShrineClearing:
@@ -89,8 +131,16 @@ func _save_and_quit() -> void:
 	SceneTransition.transition_to_packed(load("res://scenes/title.tscn") as PackedScene)
 
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		print("moving")
+		_move_to_clearing(_current_clearing)
+
+
 func _process(_delta: float) -> void:
 	var camera_movement := Input.get_vector("pan_left", "pan_right", "pan_up", "pan_down")
 	_camera.position += camera_movement * _delta * 256
-	_camera.position.x = clampf(_camera.position.x, _camera.limit_left, _camera.limit_right-_camera.get_viewport_rect().size.x)
-	_camera.position.y = clampf(_camera.position.y, _camera.limit_top, _camera.limit_bottom-_camera.get_viewport_rect().size.y)
+	var width := _camera.get_viewport_rect().size.x
+	var height := _camera.get_viewport_rect().size.y
+	_camera.position.x = clampf(_camera.position.x, _camera.limit_left+width/2, _camera.limit_right-width/2)
+	_camera.position.y = clampf(_camera.position.y, _camera.limit_top+height/2, _camera.limit_bottom-height/2)

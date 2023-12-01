@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const DEFAULT_ANIM = &"fade"
+
 var _scene_stack: Array[Node]
 
 @onready var _previous_scene := $Crop/PreviousScene as TextureRect
@@ -27,11 +29,11 @@ func _transition(transition: StringName, scene_switch: Callable) -> void:
 	_crop.size = size
 
 
-func transition_to_packed(next_scene: PackedScene, transition:=&"wipe_left") -> void:
+func transition_to_packed(next_scene: PackedScene, transition:=DEFAULT_ANIM) -> void:
 	_transition(transition, get_tree().change_scene_to_packed.bind(next_scene))
 
 
-func transition_to_scene(next_scene: Node, transition:=&"wipe_left") -> void:
+func transition_to_scene(next_scene: Node, transition:=DEFAULT_ANIM) -> void:
 	_transition(transition, func():
 		get_tree().current_scene.queue_free()
 		get_tree().root.add_child(next_scene)
@@ -39,7 +41,7 @@ func transition_to_scene(next_scene: Node, transition:=&"wipe_left") -> void:
 	)
 
 
-func push_scene(next_scene: Node, transition:=&"wipe_left") -> void:
+func push_scene(next_scene: Node, transition:=DEFAULT_ANIM) -> void:
 	_transition(transition, func():
 		_scene_stack.push_back(get_tree().current_scene)
 		get_tree().root.add_child(next_scene)
@@ -48,7 +50,7 @@ func push_scene(next_scene: Node, transition:=&"wipe_left") -> void:
 	await next_scene.tree_exiting
 
 
-func pop_scene(transition:=&"wipe_left") -> void:
+func pop_scene(transition:=DEFAULT_ANIM) -> void:
 	_transition(transition, func():
 		assert(_scene_stack.size() >= 1)
 		get_tree().current_scene.queue_free()

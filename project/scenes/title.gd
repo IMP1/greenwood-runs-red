@@ -1,9 +1,9 @@
 extends Control
 
 const CAMPAIGN_SCENE := preload("res://scenes/campaign.tscn") as PackedScene
-const GAME_SCENE = preload("res://scenes/game_setup.tscn") as PackedScene
+const GAME_SCENE := preload("res://scenes/game_setup.tscn") as PackedScene
 # const OPTIONS_SCENE = preload("res://scenes/options.tscn") as PackedScene
-const CREDITS_SCENE = preload("res://scenes/credits.tscn") as PackedScene
+const CREDITS_SCENE := preload("res://scenes/credits.tscn") as PackedScene
 
 var _last_run: CampaignProgress
 
@@ -64,22 +64,22 @@ func _continue() -> void:
 	await _remove_menu()
 	var campaign := CAMPAIGN_SCENE.instantiate() as Campaign
 	campaign.progress = _last_run
-	SceneTransition.transition_to_scene(campaign)
+	SceneTransition.transition_to_scene(campaign, &"wipe_left")
 
 
 func _new_game() -> void:
 	await _remove_menu()
-	SceneTransition.transition_to_packed(GAME_SCENE)
+	SceneTransition.transition_to_packed(GAME_SCENE, &"wipe_left")
 
 
 func _options() -> void:
 	await _remove_menu()
-#	SceneTransition.transition_to_packed(OPTIONS_SCENE)
+#	SceneTransition.transition_to_packed(OPTIONS_SCENE, &"wipe_left")
 
 
 func _credits() -> void:
 	await _remove_menu()
-	SceneTransition.transition_to_packed(CREDITS_SCENE)
+	SceneTransition.transition_to_packed(CREDITS_SCENE, &"wipe_left")
 
 
 func _quit():

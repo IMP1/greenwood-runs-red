@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfqucomyu5qlo"]
+[gd_scene load_steps=9 format=3 uid="uid://dfqucomyu5qlo"]
 
 [ext_resource type="Script" path="res://util/scene_transition.gd" id="1_8hqap"]
 [ext_resource type="Texture2D" uid="uid://b84svo1i6riyc" path="res://assets/backgrounds/bg_test.png" id="2_5ea33"]
@@ -349,8 +349,24 @@ tracks/13/keys = {
 "values": [Vector2(0, 0), Vector2(-1152, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_42xw7"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crop:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5whu0"]
 _data = {
+"fade": SubResource("Animation_42xw7"),
 "wipe_left": SubResource("Animation_e3f7k"),
 "wipe_right": SubResource("Animation_mi08t")
 }
@@ -365,7 +381,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1152.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -378,14 +393,14 @@ mouse_filter = 2
 texture = ExtResource("2_5ea33")
 
 [node name="Wipe" type="TextureRect" parent="."]
-modulate = Color(0, 0, 0, 0)
+modulate = Color(0, 0, 0, 1)
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1452.0
+offset_left = 72.0
 offset_top = -118.0
-offset_right = -1137.0
+offset_right = 387.0
 offset_bottom = 56.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -403,38 +418,32 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Leaf1" type="TextureRect" parent="Control"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 386.0
-offset_top = 561.0
-offset_right = 636.011
-offset_bottom = 736.001
-rotation = 6.28319
+offset_left = 1086.0
+offset_top = -107.0
+offset_right = 1336.01
+offset_bottom = 68.0009
 texture = ExtResource("3_m5j38")
 expand_mode = 3
 stretch_mode = 4
 
 [node name="Leaf2" type="TextureRect" parent="Control"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 529.0
-offset_top = 329.0
-offset_right = 778.999
-offset_bottom = 503.998
-rotation = 4.71239
+offset_left = 1129.0
+offset_top = -71.0
+offset_right = 1379.0
+offset_bottom = 103.998
 texture = ExtResource("3_m5j38")
 expand_mode = 3
 stretch_mode = 4
 flip_h = true
 
 [node name="Leaf3" type="TextureRect" parent="Control"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 503.0
-offset_top = 534.0
-offset_right = 753.003
-offset_bottom = 709.0
-rotation = 6.28319
+offset_left = 1153.0
+offset_top = -116.0
+offset_right = 1403.0
+offset_bottom = 58.9998
 texture = ExtResource("3_m5j38")
 expand_mode = 3
 stretch_mode = 4

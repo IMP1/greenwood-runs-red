@@ -8,7 +8,7 @@ const DEFAULT_SAVE_FILEPATH := "user://saves/save_0.tres"
 @export var experience: int = 0
 @export var level: int = 1
 @export var battle_results: Array[BattleResult] = []
-@export var current_clearing: NodePath
+@export var current_clearing: NodePath = ""
 @export var visited_clearings: Array[NodePath] = []
 @export var cleared_clearings: Array[NodePath] = []
 

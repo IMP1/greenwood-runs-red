@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd5wuge1xypb0"]
+
+[ext_resource type="Shader" path="res://object/fog_clearing.gdshader" id="1_vq22w"]
+[ext_resource type="Texture2D" uid="uid://cqht40h8qcni3" path="res://assets/fog-light.png" id="2_qq08v"]
+[ext_resource type="Script" path="res://object/fog_clearing.gd" id="3_v5hvi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fy83"]
+shader = ExtResource("1_vq22w")
+
+[node name="FogClearing" type="Sprite2D"]
+z_index = 5
+material = SubResource("ShaderMaterial_7fy83")
+position = Vector2(270, 168)
+texture = ExtResource("2_qq08v")
+script = ExtResource("3_v5hvi")

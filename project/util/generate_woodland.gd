@@ -4,6 +4,7 @@ const BOTTOM_NAME := "Bottom"
 const MIDDLE_NAME := "Middle"
 const TOP_NAME := "Top"
 
+@export var camera: Camera2D
 @export var bottom_texture: Texture2D
 @export var middle_texture: Texture2D
 @export var top_texture: Texture2D
@@ -45,7 +46,7 @@ func _process(_delta: float) -> void:
 		var top := tree.get_node(TOP_NAME) as Sprite2D
 		var middle := tree.get_node(MIDDLE_NAME) as Sprite2D
 		var bottom := tree.get_node(BOTTOM_NAME) as Sprite2D
-		var centre := get_viewport().get_camera_2d().get_screen_center_position()
+		var centre := camera.get_screen_center_position()
 		var offset := (centre - tree.global_position) * offset_factor
 		var dist := offset.length()
 		dist = clampf(dist, -max_offset, max_offset)

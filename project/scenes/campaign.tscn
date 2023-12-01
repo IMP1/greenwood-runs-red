@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cewc40tfocmbw"]
+[gd_scene load_steps=24 format=3 uid="uid://cewc40tfocmbw"]
 
 [ext_resource type="Script" path="res://scenes/campaign.gd" id="1_pfic5"]
 [ext_resource type="Texture2D" uid="uid://dlfsag7ow00we" path="res://assets/icons/paw-print.svg" id="3_2oddv"]
@@ -16,7 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://by76gjl8ga21a" path="res://gui/modal.tscn" id="11_g2w4r"]
 [ext_resource type="Texture2D" uid="uid://clduiunhmndd7" path="res://assets/map_entities/tree_top.png" id="12_wd6ys"]
 [ext_resource type="Texture2D" uid="uid://15ndkvtecggh" path="res://assets/characters/snake_face.png" id="14_yrukp"]
-[ext_resource type="Texture2D" uid="uid://cbciumdmncbvv" path="res://assets/icons/plain-square.svg" id="15_yb7lw"]
+[ext_resource type="PackedScene" uid="uid://bd5wuge1xypb0" path="res://object/fog_clearing.tscn" id="16_i84j5"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_30ssf"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1chbo"]
+viewport_path = NodePath("ForestScene")
 
 [sub_resource type="Gradient" id="Gradient_v2y8d"]
 colors = PackedColorArray(0.93408, 0.93408, 0.93408, 1, 1, 1, 1, 1)
@@ -29,15 +34,6 @@ offset = Vector3(0, 5e+07, 0)
 seamless = true
 color_ramp = SubResource("Gradient_v2y8d")
 noise = SubResource("FastNoiseLite_wfngi")
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cy3vf"]
-light_mode = 2
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7y7yy"]
-polygon = PackedVector2Array(-3, -149, 86, -136, 156, -99, 263, -56, 340, -32, 406, 27, 425, 95, 394, 195, 269, 248, 202, 163, 101, 124, 94, 243, 91, 361, 41, 344, -50, 330, -103, 283, -103, 210, -71, 113, -96, 16, -120, -58, -59, -106)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tccw8"]
-polygon = PackedVector2Array(-104, -179, -7, -213, 110, -213, 256, -194, 390, -131, 462, -65, 525, 90, 445, 238, 265, 338, 201, 244, 161, 213, 150, 272, 165, 465, -17, 405, -108, 393, -172, 338, -182, 232, -216, 147, -235, 56, -280, -48, -204, -124)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hr3ej"]
 bg_color = Color(1, 1, 1, 1)
@@ -54,6 +50,15 @@ corner_radius_bottom_left = 30
 [node name="Campaign" type="Node2D"]
 script = ExtResource("1_pfic5")
 metadata/_edit_vertical_guides_ = []
+
+[node name="ForestScene" type="SubViewport" parent="."]
+size = Vector2i(4096, 2048)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_30ssf")
+position = Vector2(-464, -147)
+texture = SubResource("ViewportTexture_1chbo")
+centered = false
 
 [node name="Forest" type="Node2D" parent="."]
 light_mask = 2
@@ -80,8 +85,9 @@ position = Vector2(-67, -17)
 color = Color(0.286275, 0.384314, 0.533333, 1)
 polygon = PackedVector2Array(2184, 174, 2078, 292, 1978, 430, 1901, 600, 1823, 691, 1755, 726, 1680, 759, 1621, 796, 1576, 851, 1544, 927, 1506, 987, 1451, 1049, 1395, 1102, 1321, 1164, 1257, 1212, 1180, 1274, 1110, 1353, 1015, 1482, 948, 1617, 909, 1692, 1127, 1685, 1151, 1589, 1201, 1453, 1264, 1359, 1317, 1296, 1407, 1218, 1501, 1148, 1577, 1082, 1647, 1034, 1755, 1013, 1855, 972, 1942, 913, 2020, 839, 2074, 737, 2120, 610, 2160, 488, 2166, 393, 2199, 305, 2274, 240, 2337, 185, 2413, 149, 2503, 119, 2605, 110, 2807, 119, 2926, 99, 2915, -40, 2659, -29, 2463, 10, 2285, 103)
 
-[node name="Woodland" type="Node2D" parent="Forest"]
+[node name="Woodland" type="Node2D" parent="Forest" node_paths=PackedStringArray("camera")]
 script = ExtResource("9_l4kbw")
+camera = NodePath("../../Camera2D")
 bottom_texture = ExtResource("10_5g2o6")
 middle_texture = ExtResource("11_d1wrp")
 top_texture = ExtResource("12_wd6ys")
@@ -621,89 +627,6 @@ clearing_name = "Forest Heart"
 icon = ExtResource("9_jyvdd")
 adjacent_clearings = [NodePath("../BattleClearing7")]
 
-[node name="Fog" type="Node2D" parent="Forest"]
-visible = false
-
-[node name="Lights" type="Node2D" parent="Forest/Fog"]
-
-[node name="PointLight2D" type="PointLight2D" parent="Forest/Fog/Lights"]
-position = Vector2(1154, 657)
-scale = Vector2(6.31055, 3.24414)
-blend_mode = 2
-range_item_cull_mask = 2
-shadow_enabled = true
-shadow_item_cull_mask = 2
-texture = ExtResource("15_yb7lw")
-texture_scale = 3.0
-
-[node name="PointLight2D2" type="PointLight2D" parent="Forest/Fog/Lights"]
-visible = false
-position = Vector2(-537, -230)
-scale = Vector2(6.31055, 3.24414)
-blend_mode = 2
-range_item_cull_mask = 2
-shadow_enabled = true
-shadow_item_cull_mask = 2
-texture = ExtResource("15_yb7lw")
-texture_scale = 3.0
-
-[node name="PointLight2D3" type="PointLight2D" parent="Forest/Fog/Lights"]
-visible = false
-position = Vector2(2819, -224)
-scale = Vector2(6.31055, 3.24414)
-blend_mode = 2
-range_item_cull_mask = 2
-shadow_enabled = true
-shadow_item_cull_mask = 2
-texture = ExtResource("15_yb7lw")
-texture_scale = 3.0
-
-[node name="PointLight2D4" type="PointLight2D" parent="Forest/Fog/Lights"]
-visible = false
-position = Vector2(2829, 1546)
-scale = Vector2(6.31055, 3.24414)
-blend_mode = 2
-range_item_cull_mask = 2
-shadow_enabled = true
-shadow_item_cull_mask = 2
-texture = ExtResource("15_yb7lw")
-texture_scale = 3.0
-
-[node name="PointLight2D5" type="PointLight2D" parent="Forest/Fog/Lights"]
-visible = false
-position = Vector2(-568, 1541)
-scale = Vector2(6.31055, 3.24414)
-blend_mode = 2
-range_item_cull_mask = 2
-shadow_enabled = true
-shadow_item_cull_mask = 2
-texture = ExtResource("15_yb7lw")
-texture_scale = 3.0
-
-[node name="Fog" type="Polygon2D" parent="Forest/Fog"]
-light_mask = 2
-visibility_layer = 2
-material = SubResource("CanvasItemMaterial_cy3vf")
-position = Vector2(96, -20)
-color = Color(0.568627, 0.647059, 0.619608, 1)
-polygon = PackedVector2Array(-522, -219, 2814, -219, 2824, 1540, -561, 1533)
-
-[node name="Clearings" type="Node2D" parent="Forest/Fog"]
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Forest/Fog/Clearings"]
-light_mask = 0
-visibility_layer = 0
-position = Vector2(268, 156)
-occluder = SubResource("OccluderPolygon2D_7y7yy")
-occluder_light_mask = 2
-
-[node name="LightOccluder2D3" type="LightOccluder2D" parent="Forest/Fog/Clearings"]
-light_mask = 0
-visibility_layer = 0
-position = Vector2(268, 156)
-occluder = SubResource("OccluderPolygon2D_tccw8")
-occluder_light_mask = 2
-
 [node name="Gui" type="Node2D" parent="Forest"]
 
 [node name="CurrentClearing" type="Node2D" parent="Forest/Gui"]
@@ -729,8 +652,547 @@ stretch_mode = 6
 
 [node name="AdjacentClearings" type="Node2D" parent="Forest/Gui"]
 
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+z_index = 5
+copy_mode = 2
+
+[node name="Fog" type="Node2D" parent="."]
+visible = false
+z_index = 5
+
+[node name="Fog" type="Polygon2D" parent="Fog"]
+position = Vector2(96, -20)
+color = Color(0.568627, 0.647059, 0.619608, 1)
+polygon = PackedVector2Array(-567, -195, 2814, -219, 2824, 1540, -561, 1533)
+
+[node name="Clearings" type="Node2D" parent="Fog"]
+
+[node name="FogClearing1" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(206, 112)
+clearing = NodePath("../../../Forest/Clearings/StartingClearing")
+
+[node name="FogClearing2" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(348, 122)
+clearing = NodePath("../../../Forest/Clearings/StartingClearing")
+
+[node name="FogClearing3" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(518, 228)
+clearing = NodePath("../../../Forest/Clearings/StartingClearing")
+
+[node name="FogClearing4" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(346, 312)
+clearing = NodePath("../../../Forest/Clearings/StartingClearing")
+
+[node name="FogClearing5" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(252, 360)
+clearing = NodePath("../../../Forest/Clearings/StartingClearing")
+
+[node name="FogClearing6" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(124, 274)
+clearing = NodePath("../../../Forest/Clearings/StartingClearing")
+
+[node name="FogClearing7" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(286, 398)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing2")
+
+[node name="FogClearing8" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(212, 641)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing2")
+
+[node name="FogClearing9" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(276, 172)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing2")
+
+[node name="FogClearing10" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(345, 488)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing2")
+
+[node name="FogClearing11" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(155, 455)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing2")
+
+[node name="FogClearing12" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(145, 343)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing2")
+
+[node name="FogClearing13" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(319, 324)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing2")
+
+[node name="FogClearing14" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(566, 257)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing")
+
+[node name="FogClearing15" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(273, 174)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing")
+
+[node name="FogClearing16" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(865, 188)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing")
+
+[node name="FogClearing17" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(710, 136)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing")
+
+[node name="FogClearing18" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(720, 314)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing")
+
+[node name="FogClearing19" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(468, 343)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing")
+
+[node name="FogClearing20" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(468, 138)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing")
+
+[node name="FogClearing21" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(601, 357)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing")
+
+[node name="FogClearing22" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(863, 196)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing23" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(560, 260)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing24" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1216, 253)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing25" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(974, 470)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing26" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(788, 373)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing27" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1015, 299)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing28" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1073, 153)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing29" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(727, 180)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing30" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1102, 373)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing31" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(709, 337)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing4")
+
+[node name="FogClearing32" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(975, 464)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing33" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(859, 189)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing34" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1217, 255)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing35" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1068, 152)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing36" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1139, 386)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing37" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(915, 338)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing38" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(842, 456)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing39" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(920, 572)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing40" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1122, 595)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing41" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1188, 499)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing42" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(818, 577)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing2")
+
+[node name="FogClearing43" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(545, 714)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing44" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(212, 647)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing45" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(310, 898)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing46" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(370, 758)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing47" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(386, 609)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing48" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(605, 596)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing49" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(703, 656)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing50" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(606, 807)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing51" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(549, 905)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing52" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(504, 467)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing")
+
+[node name="FogClearing53" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(318, 894)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing54" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(207, 640)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing55" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(534, 716)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing56" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(550, 1078)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing57" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(388, 1011)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing58" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(525, 900)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing59" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(388, 732)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing60" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(201, 792)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing61" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(195, 929)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing62" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(249, 1072)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing10")
+
+[node name="FogClearing63" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(560, 1085)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing9")
+
+[node name="FogClearing64" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(322, 901)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing9")
+
+[node name="FogClearing65" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(982, 1066)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing9")
+
+[node name="FogClearing66" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(779, 1082)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing9")
+
+[node name="FogClearing67" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(484, 961)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing9")
+
+[node name="FogClearing68" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(382, 1050)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing9")
+
+[node name="FogClearing69" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(480, 1180)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing9")
+
+[node name="FogClearing70" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(667, 1221)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing9")
+
+[node name="FogClearing71" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(645, 999)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing9")
+
+[node name="FogClearing72" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(975, 1066)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing73" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(550, 1076)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing74" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1287, 854)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing75" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(754, 832)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing76" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(922, 902)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing77" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(766, 1004)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing78" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(849, 1144)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing79" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1014, 1192)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing80" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1182, 1081)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing81" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1099, 925)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing82" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(731, 1192)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing8")
+
+[node name="FogClearing83" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(747, 833)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing3")
+
+[node name="FogClearing84" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(985, 1049)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing3")
+
+[node name="FogClearing85" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(779, 989)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing3")
+
+[node name="FogClearing86" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(947, 891)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing3")
+
+[node name="FogClearing87" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(826, 694)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing3")
+
+[node name="FogClearing88" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(712, 669)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing3")
+
+[node name="FogClearing89" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(639, 859)
+clearing = NodePath("../../../Forest/Clearings/ShrineClearing3")
+
+[node name="FogClearing90" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1290, 843)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing91" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(985, 1068)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing92" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1423, 538)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing93" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1007, 738)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing94" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1223, 703)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing95" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1474, 782)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing96" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1401, 944)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing97" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1236, 1020)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing98" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1084, 896)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing99" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1459, 693)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing100" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1240, 620)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing7")
+
+[node name="FogClearing101" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1421, 544)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing102" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1281, 852)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing103" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1211, 252)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing104" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1643, 687)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing105" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1491, 738)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing106" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1278, 655)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing107" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1234, 487)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing108" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1393, 347)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing109" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1596, 353)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing110" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1662, 499)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing6")
+
+[node name="FogClearing111" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(209, 653)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing112" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(290, 397)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing113" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(536, 710)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing114" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(317, 902)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing115" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(125, 828)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing116" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(27, 630)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing117" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(125, 475)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing118" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(354, 552)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing119" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(371, 720)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing120" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(462, 582)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing3")
+
+[node name="FogClearing121" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1218, 249)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing122" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(861, 185)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing123" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(979, 464)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing124" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1423, 545)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing125" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1477, 195)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing126" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1265, 44)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing127" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1104, 121)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing128" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1027, 286)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing129" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1387, 370)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing130" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1219, 461)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
+[node name="FogClearing131" parent="Fog/Clearings" node_paths=PackedStringArray("clearing") instance=ExtResource("16_i84j5")]
+position = Vector2(1317, 219)
+clearing = NodePath("../../../Forest/Clearings/BattleClearing5")
+
 [node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
+position = Vector2(276, 176)
 limit_left = -256
 limit_top = -128
 limit_right = 2304
