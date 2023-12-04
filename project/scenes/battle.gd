@@ -23,6 +23,8 @@ var _enemy_battlers: Array[Battler]
 @onready var _player_actions := $CanvasLayer/Actions as Control
 @onready var _enemy_gui_list := $CanvasLayer/EnemyInfo as Control
 @onready var _player_hand := $CanvasLayer/Hand as Control
+@onready var _modal := $CanvasLayer/Modal as Modal
+@onready var _camera := $Camera2D as Camera2D
 
 # TODO: Limit attacks to their range
 # TODO: Movement
@@ -30,6 +32,7 @@ var _enemy_battlers: Array[Battler]
 
 
 func _ready() -> void:
+	_camera.make_current()
 	if not player:
 		return
 	_setup_characters()
@@ -47,7 +50,7 @@ func _process_round() -> void:
 		var battler := child as Battler
 		await _start_turn(battler)
 		_refresh_ui()
-		if battler.name == PLAYER_BATTLER_NAME:
+		if battler == _player_batter:
 			await _player_turn(battler)
 		else:
 			await _ai_turn(battler)
@@ -60,8 +63,13 @@ func _process_round() -> void:
 
 
 func _end_battle() -> void:
+	_modal.show_menu("Debrief")
 	# TODO: Show results
+	# TODO: Show rewards (reward options)
 	# TODO: Push result to global progress variable
+
+
+func _confirm_end_battle() -> void:
 	SceneTransition.pop_scene()
 
 
@@ -79,6 +87,7 @@ func _setup_characters() -> void:
 	_player_batter.character = character
 	_player_batter.name = PLAYER_BATTLER_NAME
 	_battler_list.add_child(_player_batter)
+	# TODO: Get starting position for player battler
 	_player_batter.set_deferred("position", _positions.get_child(5).position)
 	_enemy_battlers = []
 	for i in enemies.size():
@@ -171,31 +180,31 @@ func _end_turn(battler: Battler) -> void:
 
 
 func _ai_turn(battler: Battler) -> void:
-	print("Starting AI Turn")
-	print(battler.hand)
+	print("[Battle] Starting AI Turn")
+	print(battler.hand.map(func(c: CardData) -> String: return c.name))
 	await get_tree().create_timer(1).timeout
 	var options := battler.hand.filter(func(c: CardData): return battler.can_play_card(c))
-	print(options)
-	while not options.is_empty():
+	print(options.map(func(c: CardData) -> String: return c.name))
+	while not options.is_empty() and not _is_battle_over():
 		await get_tree().create_timer(0.5).timeout
 		var card := options.pick_random() as CardData
 		await _play_card(card, battler, _player_batter)
 		options = battler.hand.filter(func(c: CardData): return battler.can_play_card(c))
-	print("Ending AI Turn")
+	print("[Battle] Ending AI Turn")
 	# TODO: AI? Random? Different AIs?
 
 
 func _player_turn(_battler: Battler) -> void:
-	print("Starting Player Turn")
+	print("[Battle] Starting Player Turn")
 	_refresh_actions()
 	_player_actions.visible = true
 	await _end_player_turn.pressed
 	_player_actions.visible = false
-	print("Ending Player Turn")
+	print("[Battle] Ending Player Turn")
 
 
 func _play_card(card: CardData, battler: Battler, target: Battler) -> void:
-	print("Playing '%s'" % card.name)
+	print("[Battle] Playing '%s'" % card.name)
 	battler.hand.remove_at(battler.hand.find(card))
 	battler.energy -= card.energy_cost
 	for action in card.actions:
@@ -206,11 +215,13 @@ func _play_card(card: CardData, battler: Battler, target: Battler) -> void:
 	else:
 		battler.discard.append(card)
 	_refresh_ui()
+	if battler == _player_batter and _is_battle_over():
+		_end_player_turn.pressed.emit()
 	_refresh_actions()
 
 
 func _perform_action(action: CardAction, subject: Battler, target: Battler) -> void:
-	print("Performing '%s'" % action.name)
+	print("[Battle] Performing '%s'" % action.name)
 	var should_continue := true
 	if action is CardActionMove:
 		var amount := (action as CardActionMove).distance

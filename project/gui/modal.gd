@@ -1,6 +1,8 @@
 class_name Modal
 extends ColorRect
 
+@export var close_on_click_outside: bool = true
+
 var _current_open_child: Control
 
 
@@ -27,6 +29,8 @@ func hide_all() -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
+	if not close_on_click_outside:
+		return
 	if not event is InputEventMouseButton:
 		return
 	hide_all()

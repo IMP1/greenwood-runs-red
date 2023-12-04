@@ -23,7 +23,7 @@ func _ready() -> void:
 	progress.visited_clearings.clear()
 	progress.current_clearing = ""
 	if not progress.current_clearing.is_empty():
-		print("Starting at %s" % progress.current_clearing)
+		print("[Campaign] Starting at %s" % progress.current_clearing)
 		_current_clearing = get_node(progress.current_clearing) as Clearing
 	_setup_clearings()
 	_setup_options()
@@ -52,6 +52,7 @@ func _setup_options() -> void:
 		_adjacent_clearing_list.add_child(button)
 		button.position = clearing.position
 		button.clearing = clearing
+		button.player = progress
 		button.clearing_selected.connect(func(): _move_to_clearing(clearing))
 
 
@@ -63,13 +64,14 @@ func _clear_fog(clearing: Clearing, duration: float) -> void:
 	fog_clearings.assign(_fog_clearing_list.get_children().filter(func(child: Node) -> bool:
 		return child is FogClearing and (child as FogClearing).clearing == clearing))
 	if fog_clearings.is_empty():
-		print("No fog clearings for clearing %s" % clearing.name)
+		print("[Campaign] No fog clearings for clearing %s" % clearing.name)
 		return
 	var tween := create_tween()
 	for fog_clearing in fog_clearings:
 		fog_clearing.visible = true
 		fog_clearing.modulate = transparent
-		tween.parallel().tween_property(fog_clearing, "modulate", revealed, duration)
+		var delay := randf_range(0, 0.4) # IDEA: This could be based of distance from middle
+		tween.parallel().tween_property(fog_clearing, "modulate", revealed, duration).set_delay(delay)
 
 
 func _is_clearing_on_screen(clearing: Clearing) -> bool:
@@ -89,12 +91,13 @@ func _move_to_clearing(clearing: Clearing) -> void:
 	var duration := 0.6
 	var tween := create_tween()
 	if clearing.times_visited == 0:
-		_clear_fog(clearing, duration)
+		_clear_fog(clearing, duration*2)
 	clearing.times_visited += 1
 	tween.tween_property(_char_info, "position", clearing.position, duration)
 	if not _is_clearing_on_screen(clearing):
-		# TODO: Move to edge of the camera pan boundary, rather than pan so clearing is centred
-		tween.parallel().tween_property(_camera, "position", clearing.position, duration)
+		var offset := clearing.position - _current_clearing.position
+		# TODO: Rethink this camera motion
+		tween.parallel().tween_property(_camera, "position", _camera.position + offset, duration)
 	await tween.finished
 	_current_clearing = clearing
 	_setup_options()
@@ -107,9 +110,9 @@ func _move_to_clearing(clearing: Clearing) -> void:
 			var enemy := battle.possible_encounters.pick_random() as EnemyData
 			await _battle(enemy)
 	elif _current_clearing is BossClearing:
-		print("boss")
+		print("[Campaign] Entering boss")
 	elif _current_clearing is ShrineClearing:
-		print("shrine")
+		print("[Campaign] Entering shrine")
 	progress.current_clearing = clearing_path
 	progress.cleared_clearings.push_back(clearing_path)
 
@@ -119,8 +122,8 @@ func _battle(enemy: EnemyData) -> void:
 	battle.player = progress
 	battle.character = progress.character
 	battle.enemies = [enemy]
-	# TODO: Show battle enemy (vs thing)
 	await SceneTransition.push_scene(battle) # TODO: Battle transition!
+	_camera.make_current()
 
 
 func _open_settings() -> void:
@@ -129,12 +132,6 @@ func _open_settings() -> void:
 
 func _save_and_quit() -> void:
 	SceneTransition.transition_to_packed(load("res://scenes/title.tscn") as PackedScene)
-
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		print("moving")
-		_move_to_clearing(_current_clearing)
 
 
 func _process(_delta: float) -> void:

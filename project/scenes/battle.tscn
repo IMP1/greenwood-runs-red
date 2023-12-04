@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcivrfec77mtf"]
+[gd_scene load_steps=8 format=3 uid="uid://dcivrfec77mtf"]
 
 [ext_resource type="Script" path="res://scenes/battle.gd" id="1_ay6vq"]
 [ext_resource type="Texture2D" uid="uid://cumr7n6b7lje" path="res://assets/backgrounds/test_bg_2.png" id="2_4legt"]
@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bd3qp1joukws2" path="res://gui/card_hand.tscn" id="3_tfw63"]
 [ext_resource type="Texture2D" uid="uid://4tjlc4b31w73" path="res://assets/icons/circle.svg" id="3_tmbsg"]
 [ext_resource type="PackedScene" uid="uid://yskrqf4opcny" path="res://gui/player_battler_info.tscn" id="4_4184w"]
+[ext_resource type="PackedScene" uid="uid://by76gjl8ga21a" path="res://gui/modal.tscn" id="7_a15pt"]
 
 [node name="Battle" type="Node2D"]
-z_index = 10
+z_index = 100
 script = ExtResource("1_ay6vq")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -103,6 +104,9 @@ texture = ExtResource("3_tmbsg")
 
 [node name="Battlers" type="Node2D" parent="."]
 
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HandBackground" type="Panel" parent="CanvasLayer"]
@@ -188,3 +192,45 @@ offset_top = 331.0
 offset_right = 184.0
 offset_bottom = 369.0
 text = "Move (0)"
+
+[node name="Modal" parent="CanvasLayer" instance=ExtResource("7_a15pt")]
+close_on_click_outside = false
+
+[node name="Debrief" type="Control" parent="CanvasLayer/Modal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 78.0
+offset_top = 51.0
+offset_right = -86.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_dyvag")
+
+[node name="Result" type="Label" parent="CanvasLayer/Modal/Debrief"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 33.0
+offset_bottom = 82.0
+grow_horizontal = 2
+text = "Enemy Defeated!"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Modal/Debrief"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Continue"
+
+[connection signal="pressed" from="CanvasLayer/Modal/Debrief/Button" to="." method="_confirm_end_battle"]

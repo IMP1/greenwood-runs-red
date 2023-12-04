@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://2wevjc4c3sxk"]
+
+[ext_resource type="Texture2D" uid="uid://dkp0c7b4mkgrq" path="res://assets/statuses/poisoned.svg" id="1_2q74s"]
+[ext_resource type="Script" path="res://gui/status_icon.gd" id="1_po8tu"]
+
+[node name="StatusIcon" type="TextureRect"]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("1_2q74s")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("1_po8tu")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "4"
+horizontal_alignment = 2

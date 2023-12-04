@@ -39,3 +39,8 @@ static func get_icon(status_type: StatusType) -> Texture2D:
 		push_warning("[Status] Cannot find icon for status '%s'" % name)
 		return null
 	return ResourceLoader.load(path) as Texture2D
+
+
+static func get_status_name(status_type: StatusType) -> String:
+	var name := StatusType.keys()[status_type] as String
+	return name.to_pascal_case()

@@ -79,7 +79,6 @@ theme_override_font_sizes/font_size = 18
 text = "20/100"
 
 [node name="Statuses" type="HBoxContainer" parent="."]
-visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

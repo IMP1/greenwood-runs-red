@@ -1,6 +1,8 @@
 class_name PlayerBattlerInfo
 extends VBoxContainer
 
+const STATUS_ICON := preload("res://gui/status_icon.tscn")
+
 @export var player_name: String
 @export var player: Battler
 
@@ -29,12 +31,19 @@ func refresh() -> void:
 	_hand_size.text = str(player.hand.size())
 	_deck_size.text = str(player.deck.size())
 	_discard_size.text = str(player.discard.size())
+	for child in _status_list.get_children():
+		_status_list.remove_child(child)
+		child.queue_free()
 	for i in Status.StatusType.size():
 		var status := Status.StatusType.values()[i] as Status.StatusType
 		var amount := player.get_status_level(status)
 		if amount > 0:
-			pass
-			# TODO: Create a texture rect. Also show how bad the status is.
+			var icon := Status.get_icon(status)
+			var status_icon := STATUS_ICON.instantiate() as StatusIcon
+			status_icon.status = status
+			status_icon.amount = amount
+			status_icon.tooltip_text = Status.get_status_name(status)
+			_status_list.add_child(status_icon)
 			# TODO: Have a tooltip that shows where the total is coming from 
 			#       (split up the instances of the same status) and how long it'll last
 
